@@ -7,10 +7,35 @@ import NavBar from "./components/NavBar"
 import UserPage from "./components/UserPage"
 import SignIn from "./components/SignIn"
 import SignUp from "./components/SignUp"
+import Restaurant from "./components/Restaurant"
 import { useNavigate } from "react-router-dom"
 
 function App() {
+  const [restaurants, setRestaurant] = useState([])
   const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    const getRestaurant = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/restaurant`)
+        setRestaurant(response.data)
+        console.log(response.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getRestaurant()
+  }, [])
+  const handleDeleteRestaurant = async (restId) => {
+    try {
+      await axios.delete(`http://localhost:3000/restaurant/${restId}`)
+      setRestaurant(restaurants.filter((rest) => rest._id !== restId))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // function App() {
 
   const checkToken = async () => {
     const userData = await CheckSession()
@@ -34,6 +59,17 @@ function App() {
       <div>
         <NavBar user={user} handleLogOut={handleLogOut} />
         <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                restaurants={restaurants}
+                handleDeleteRestaurant={handleDeleteRestaurant}
+              />
+            }
+          />
+          <Route path="/:id" element={<Restaurant />} />
+
           <Route path="/" element={<Home />} />
           <Route path="/user" element={<UserPage />} />
           <Route path="/sign-in" element={<SignIn setUser={setUser} />} />

@@ -60,17 +60,6 @@ function App() {
       <div>
         <NavBar user={user} handleLogOut={handleLogOut} />
         <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                restaurants={restaurants}
-                handleDeleteRestaurant={handleDeleteRestaurant}
-              />
-            }
-          />
-          <Route path="/:id" element={<Restaurant />} />
-
           <Route path="/" element={<Home />} />
           <Route path="/user" element={<UserPage />} />
           <Route path="/sign-in" element={<SignIn setUser={setUser} />} />

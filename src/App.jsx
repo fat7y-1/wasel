@@ -8,6 +8,12 @@ import UserPage from "./components/UserPage"
 import SignIn from "./components/SignIn"
 import SignUp from "./components/SignUp"
 import Restaurant from "./components/Restaurant"
+<<<<<<< HEAD
+=======
+import AddFood from "./components/AddFood"
+import { useNavigate } from "react-router-dom"
+
+>>>>>>> 8e76bf6553070f9c8ee64d0e1cd4107e96e48cc4
 import { useNavigate } from "react-router-dom"
 
 function App() {
@@ -26,6 +32,7 @@ function App() {
     }
     getRestaurant()
   }, [])
+
   const handleDeleteRestaurant = async (restId) => {
     try {
       console.log(restId)
@@ -35,8 +42,12 @@ function App() {
       console.log(error)
     }
   }
+<<<<<<< HEAD
 
   // function App() {
+=======
+  const [user, setUser] = useState(null)
+>>>>>>> 8e76bf6553070f9c8ee64d0e1cd4107e96e48cc4
 
   const checkToken = async () => {
     const userData = await CheckSession()
@@ -70,8 +81,7 @@ function App() {
             }
           />
           <Route path="/:id" element={<Restaurant />} />
-
-          <Route path="/" element={<Home />} />
+          <Route path="/addFood/:id" element={<AddFood />} />
           <Route path="/user" element={<UserPage />} />
           <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
           <Route path="/sign-up" element={<SignUp />} />

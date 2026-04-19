@@ -1,5 +1,35 @@
 import { Link } from "react-router-dom"
-const NavBar = () => {
+const NavBar = ({ user, handleLogOut }) => {
+  let signedIn = (
+    <>
+      <Link to="/user">
+        <img
+          height="40px"
+          src="https://cdn-icons-png.flaticon.com/128/456/456283.png"
+          alt="User Page"
+        />
+      </Link>
+      <Link onClick={handleLogOut}>
+        <img
+          height="40px"
+          src="https://cdn-icons-png.flaticon.com/128/4400/4400629.png"
+          alt="Sign out"
+        />
+      </Link>
+    </>
+  )
+  let notSignedIn = (
+    <>
+      <Link to="/sign-in">
+        <img
+          height="40px"
+          src="https://cdn-icons-png.flaticon.com/128/2939/2939220.png"
+          alt="Sign in"
+        />
+      </Link>
+      <Link to="/sign-up">Sign up</Link>
+    </>
+  )
   return (
     <header>
       <nav className="navbar">
@@ -10,21 +40,7 @@ const NavBar = () => {
             alt="Home"
           />
         </Link>
-        <Link to="/user">
-          <img
-            height="40px"
-            src="https://cdn-icons-png.flaticon.com/128/456/456283.png"
-            alt="User Page"
-          />
-        </Link>
-        <Link to="/sign-in">
-          <img
-            height="40px"
-            src="https://cdn-icons-png.flaticon.com/128/2939/2939220.png"
-            alt="Sign in"
-          />
-        </Link>
-        <Link to="/sign-up">Sign up</Link>
+        {user ? signedIn : notSignedIn}
       </nav>
     </header>
   )

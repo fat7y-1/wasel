@@ -28,6 +28,7 @@ function App() {
   }, [])
   const handleDeleteRestaurant = async (restId) => {
     try {
+      console.log(restId)
       await axios.delete(`http://localhost:3000/restaurant/${restId}`)
       setRestaurant(restaurants.filter((rest) => rest._id !== restId))
     } catch (error) {

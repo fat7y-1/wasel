@@ -5,15 +5,17 @@ import axios from "axios"
 
 const Restaurant = ({ restaurant }) => {
   const { id } = useParams()
-  console.log(id)
+  console.log(restaurant)
   const { addFood, setAddFood } = useState([])
 
-  const selectedFood = restaurant.find((rest) => rest._id === id)
+  const selectedFood = restaurant.find((res) => rest._id === id)
+  console.log(selectedFood)
 
   useEffect(() => {
     const getFood = async () => {
       try {
         let response = await axios.get(`http://localhost:3000/food/${id}`)
+        console.log(response.data)
         setAddFood(response.data)
       } catch (error) {
         console.log(error)

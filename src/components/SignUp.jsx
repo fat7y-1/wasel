@@ -1,20 +1,15 @@
-const SignUp = () => {
-  return <h1>Sign Up</h1>
-}
-export default SignUp
-/**
- import { useState } from 'react'
-import { RegisterUser } from '../services/Auth'
-import { useNavigate } from 'react-router-dom'
+import { useState } from "react"
+// import { RegisterUser } from "../services/Auth"
+import { useNavigate } from "react-router-dom"
 
-const Register = () => {
+const SignUp = ({ RegisterUser }) => {
   let navigate = useNavigate()
 
   const initialState = {
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   }
 
   const [formValues, setFormValues] = useState(initialState)
@@ -26,24 +21,26 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     await RegisterUser(formValues)
+
     setFormValues(initialState)
-    navigate('/signin')
+    navigate("/sign-in")
   }
 
   return (
     <div className="col register">
+      <h1>Sign Up</h1>
       <img src="/images/register.png" alt="Register Title Image" />
       <form onSubmit={handleSubmit}>
         <div className="input-wrapper">
-          <label htmlFor="name">Name</label>
+          <label htmlFor="username">Username</label>
           <input
-            name="name"
+            name="username"
             type="text"
             placeholder="John Doe"
             onChange={handleChange}
-            value={formValues.name}
+            value={formValues.username}
             required
-            autoComplete="name"
+            autoComplete="username"
           />
         </div>
         <div className="input-wrapper">
@@ -93,6 +90,4 @@ const Register = () => {
     </div>
   )
 }
-
-export default Register
- */
+export default SignUp

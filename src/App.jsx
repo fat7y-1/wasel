@@ -9,6 +9,8 @@ import SignIn from "./components/SignIn"
 import SignUp from "./components/SignUp"
 import Restaurant from "./components/Restaurant"
 
+import { useNavigate } from "react-router-dom"
+
 function App() {
   const [restaurants, setRestaurant] = useState([])
 
@@ -32,10 +34,6 @@ function App() {
       console.log(error)
     }
   }
-
-import { useNavigate } from "react-router-dom"
-
-function App() {
   const [user, setUser] = useState(null)
 
   const checkToken = async () => {

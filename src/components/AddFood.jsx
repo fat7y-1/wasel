@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom"
 const AddFood = () => {
   const navigate = useNavigate()
   const { id } = useParams()
-  const [foodForm, setFoodForm] = useState([])
+
   const init = {
     name: "",
     price: 0,
@@ -12,6 +12,7 @@ const AddFood = () => {
     image: "",
     restaurant: id,
   }
+  const [foodForm, setFoodForm] = useState([init])
 
   const handleSubmit = async (event) => {
     event.preventDefault()

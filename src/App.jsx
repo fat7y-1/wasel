@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, use } from "react"
 import Home from "./components/Home"
 import axios from "axios"
 import "./App.css"
@@ -14,13 +14,14 @@ import { useNavigate } from "react-router-dom"
 function App() {
   const [restaurants, setRestaurant] = useState([])
   const [user, setUser] = useState(null)
+  const [order, setOrder] = useState([])
 
   useEffect(() => {
     const getRestaurant = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/restaurant`)
         setRestaurant(response.data)
-        console.log(response.data)
+        // console.log(response.data)
       } catch (error) {
         console.log(error)
       }
@@ -45,7 +46,7 @@ function App() {
 
   const handleLogOut = () => {
     setUser(null)
-    console.log(user)
+    // console.log(user)
     localStorage.clear()
   }
   const RegisterUser = async (data) => {
@@ -56,6 +57,22 @@ function App() {
       throw error
     }
   }
+
+  useEffect(() => {
+    const getOrder = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/order/${user.id}`
+        )
+        console.log(`response.data (Order):${user.id}`)
+        console.log(`response.data (Order): ${response.data}`)
+        setOrder(response.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getOrder()
+  }, [2])
 
   useEffect(() => {
     const token = localStorage.getItem("token")
@@ -82,7 +99,10 @@ function App() {
             element={<Restaurant restaurants={restaurants} />}
           />
           <Route path="/addFood/:id" element={<AddFood />} />
-          <Route path="/user" element={<UserPage />} />
+          <Route
+            path="/user"
+            element={<UserPage user={user} order={order} />}
+          />
           <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
           <Route
             path="/sign-up"

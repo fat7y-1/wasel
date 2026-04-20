@@ -67,7 +67,7 @@ function App() {
               />
             }
           />
-          <Route path="/:id" element={<Restaurant />} />
+          <Route path="restaurant/:id" element={<Restaurant />} />
 
           <Route path="/" element={<Home />} />
           <Route path="/user" element={<UserPage />} />

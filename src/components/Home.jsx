@@ -7,7 +7,7 @@ const Home = ({ restaurants, handleDeleteRestaurant }) => {
 
       <div>
         {restaurants.map((restaurant) => (
-          <Link to={`/${restaurant._id}`}>
+          <Link to={`restaurant/${restaurant._id}`}>
             <div key={restaurant._id}>
               <h3>{restaurant.name}</h3>
               <img src={restaurant.logo} alt={restaurant.name} />

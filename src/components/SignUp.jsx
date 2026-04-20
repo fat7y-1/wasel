@@ -1,6 +1,5 @@
 import axios from "axios"
 import { useState } from "react"
-// import { RegisterUser } from "../services/Auth"
 import { useNavigate } from "react-router-dom"
 
 const SignUp = () => {

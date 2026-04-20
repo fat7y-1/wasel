@@ -9,7 +9,7 @@ const NavBar = ({ user, handleLogOut }) => {
           alt="User Page"
         />
       </Link>
-      <Link onClick={handleLogOut}>
+      <Link to="/" onClick={handleLogOut}>
         <img
           height="40px"
           src="https://cdn-icons-png.flaticon.com/128/4400/4400629.png"

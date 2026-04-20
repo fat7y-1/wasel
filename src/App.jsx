@@ -37,10 +37,10 @@ function App() {
       console.log(error)
     }
   }
+  //check the token
   const checkToken = async () => {
     try {
       const userData = await axios.get("http://localhost:3000/auth/session")
-      console.log(userData)
       setUser(userData)
     } catch (error) {
       console.log(error)
@@ -51,7 +51,7 @@ function App() {
     setUser(null)
     localStorage.clear()
   }
-
+  console.log(user)
   useEffect(() => {
     const getOrder = async () => {
       try {
@@ -75,7 +75,7 @@ function App() {
     }
   }, [])
 
-  axios.create({ baseURL: "http://localhost:3000" }).interceptors.request.use(
+  axios.interceptors.request.use(
     async (config) => {
       const token = localStorage.getItem("token")
 

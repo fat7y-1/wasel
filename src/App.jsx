@@ -8,11 +8,12 @@ import UserPage from "./components/UserPage"
 import SignIn from "./components/SignIn"
 import SignUp from "./components/SignUp"
 import Restaurant from "./components/Restaurant"
-
+import AddFood from "./components/AddFood"
 import { useNavigate } from "react-router-dom"
 
 function App() {
   const [restaurants, setRestaurant] = useState([])
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     const getRestaurant = async () => {
@@ -26,15 +27,16 @@ function App() {
     }
     getRestaurant()
   }, [])
+
   const handleDeleteRestaurant = async (restId) => {
     try {
+      console.log(restId)
       await axios.delete(`http://localhost:3000/restaurant/${restId}`)
       setRestaurant(restaurants.filter((rest) => rest._id !== restId))
     } catch (error) {
       console.log(error)
     }
   }
-  const [user, setUser] = useState(null)
 
   const checkToken = async () => {
     const userData = await CheckSession()
@@ -45,6 +47,14 @@ function App() {
     setUser(null)
     console.log(user)
     localStorage.clear()
+  }
+  const RegisterUser = async (data) => {
+    try {
+      const res = await axios.post("http://localhost:3000/auth/sign-up", data)
+      return res.data
+    } catch (error) {
+      throw error
+    }
   }
 
   useEffect(() => {
@@ -67,12 +77,17 @@ function App() {
               />
             }
           />
-          <Route path="restaurant/:id" element={<Restaurant />} />
-
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/:id"
+            element={<Restaurant restaurants={restaurants} />}
+          />
+          <Route path="/addFood/:id" element={<AddFood />} />
           <Route path="/user" element={<UserPage />} />
           <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
-          <Route path="/sign-up" element={<SignUp />} />
+          <Route
+            path="/sign-up"
+            element={<SignUp RegisterUser={RegisterUser} />}
+          />
         </Routes>
       </div>
     </>

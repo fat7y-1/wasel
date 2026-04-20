@@ -20,7 +20,6 @@ function App() {
       try {
         const response = await axios.get(`http://localhost:3000/restaurant`)
         setRestaurant(response.data)
-        console.log(response.data)
       } catch (error) {
         console.log(error)
       }
@@ -37,24 +36,19 @@ function App() {
       console.log(error)
     }
   }
-
   const checkToken = async () => {
-    const userData = await CheckSession()
-    setUser(userData)
+    try {
+      const userData = await axios.get("http://localhost:3000/auth/session")
+      console.log(userData)
+      setUser(userData)
+    } catch (error) {
+      console.log(error)
+    }
   }
-
+  //sign out
   const handleLogOut = () => {
     setUser(null)
-    console.log(user)
     localStorage.clear()
-  }
-  const RegisterUser = async (data) => {
-    try {
-      const res = await axios.post("http://localhost:3000/auth/sign-up", data)
-      return res.data
-    } catch (error) {
-      throw error
-    }
   }
 
   useEffect(() => {
@@ -63,6 +57,22 @@ function App() {
       checkToken()
     }
   }, [])
+
+  axios.create({ baseURL: "http://localhost:3000" }).interceptors.request.use(
+    async (config) => {
+      const token = localStorage.getItem("token")
+
+      if (token) {
+        config.headers["authorization"] = `Bearer ${token}`
+      }
+
+      return config
+    },
+    async (error) => {
+      console.log({ msg: "Axios Interceptor Error!", error })
+      throw error
+    }
+  )
   return (
     <>
       <div>
@@ -84,10 +94,7 @@ function App() {
           <Route path="/addFood/:id" element={<AddFood />} />
           <Route path="/user" element={<UserPage />} />
           <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
-          <Route
-            path="/sign-up"
-            element={<SignUp RegisterUser={RegisterUser} />}
-          />
+          <Route path="/sign-up" element={<SignUp />} />
         </Routes>
       </div>
     </>

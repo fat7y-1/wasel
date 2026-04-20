@@ -1,8 +1,9 @@
+import axios from "axios"
 import { useState } from "react"
 // import { RegisterUser } from "../services/Auth"
 import { useNavigate } from "react-router-dom"
 
-const SignUp = ({ RegisterUser }) => {
+const SignUp = () => {
   let navigate = useNavigate()
 
   const initialState = {
@@ -20,7 +21,7 @@ const SignUp = ({ RegisterUser }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await RegisterUser(formValues)
+    await axios.post("http://localhost:3000/auth/sign-up", formValues)
 
     setFormValues(initialState)
     navigate("/sign-in")

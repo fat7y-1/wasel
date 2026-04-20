@@ -37,6 +37,7 @@ const Restaurant = () => {
           <div>
             <h1>{food.name}</h1>
             <img src={food.image} alt={food.name} />
+            {console.log(food.image)}
             <p>{food.description}</p>
             <p>{food.price}</p>
           </div>

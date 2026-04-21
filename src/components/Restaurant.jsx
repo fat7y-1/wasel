@@ -29,7 +29,7 @@ const Restaurant = ({ cart, setCart, user }) => {
       name: food.name,
     }
     setCart([...cart, newOrderItem])
-    alert(`You Select ${selectQuantity} of ${food.name}`)
+
     alert("added to cart")
   }
 
@@ -52,6 +52,11 @@ const Restaurant = ({ cart, setCart, user }) => {
               onChange={(e) => setQuantity(parseInt(e.target.value))}
             />
             <button onClick={() => addCart(food, quantity)}>ADD CART</button>
+            {user.admin === true ? (
+              <Link to={`/food/update/${food._id}`}>Update</Link>
+            ) : (
+              <></>
+            )}
           </div>
         ))}
       </div>

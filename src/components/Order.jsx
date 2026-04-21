@@ -21,6 +21,7 @@ const Order = ({ cart, user, setCart, getOrder }) => {
       totalPrice: totalPrice,
       food: cart,
       user: user.id,
+      delivery: true,
     }
     try {
       await axios.post(`http://localhost:3000/order/${user.id}`, orderData)
@@ -40,7 +41,7 @@ const Order = ({ cart, user, setCart, getOrder }) => {
       ) : (
         <>
           {cart.map((item, index) => (
-            <div>
+            <div key={index}>
               <p>
                 {item.name} x {item.count}{" "}
               </p>

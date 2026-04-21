@@ -4,72 +4,50 @@ const Home = ({ restaurants, handleDeleteRestaurant, user }) => {
   if (user) {
     return (
       <div>
-                <h1>Wasel </h1>
-                <Link to={`/addRestaurant`}> Add Restaurant</Link>
-                
+        <h1>Wasel </h1>
+
         <div>
-                    
           {restaurants.map((restaurant) => (
             <>
-                            
               <Link to={`/${restaurant._id}`}>
-                                
                 <div key={restaurant._id}>
-                                    <h3>{restaurant.name}</h3>
-                                    
+                  <h3>{restaurant.name}</h3>
                   <img src={restaurant.logo} alt={restaurant.name} />
-                                    <p>Location:{restaurant.location} </p>
-                                    
+                  <p>Location:{restaurant.location} </p>
                   <p>Phone Number: {restaurant.phoneNumber}</p>
-                                  
                 </div>
-                              
               </Link>
-                            
               {user.admin ? (
                 <button onClick={() => handleDeleteRestaurant(restaurant._id)}>
-                                    Delete                 
+                  Delete
                 </button>
               ) : (
                 <></>
               )}
-                          
             </>
           ))}
-                  
         </div>
-              
       </div>
     )
   } else {
     return (
       <div>
-                <h1>Wasel </h1>
-                
+        <h1>Wasel </h1>
+
         <div>
-                    
           {restaurants.map((restaurant) => (
             <>
-                            
               <Link to={`/${restaurant._id}`}>
-                                
                 <div key={restaurant._id}>
-                                    <h3>{restaurant.name}</h3>
-                                    
+                  <h3>{restaurant.name}</h3>
                   <img src={restaurant.logo} alt={restaurant.name} />
-                                    <p>Location:{restaurant.location} </p>
-                                    
+                  <p>Location:{restaurant.location} </p>
                   <p>Phone Number: {restaurant.phoneNumber}</p>
-                                  
                 </div>
-                              
               </Link>
-                          
             </>
           ))}
-                  
         </div>
-              
       </div>
     )
   }

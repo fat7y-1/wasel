@@ -23,17 +23,8 @@ const Order = () => {
 
   return (
     <div>
-      <h1>Receipt</h1>
-      {orderDetails.food.map((item) => (
-        <div key={item.foodItem._id}>
-          <p>
-            {item.foodItem.name} x {item.count} = $
-            {item.foodItem.price * item.count}
-          </p>
-        </div>
-      ))}
-      <hr />
-      <h2>Total: ${orderDetails.totalPrice}</h2>
+      <h1>Cart</h1>
+      <h2>Your Order</h2>
     </div>
   )
 }

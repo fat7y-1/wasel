@@ -60,19 +60,21 @@ function App() {
 
   useEffect(() => {
     const getOrder = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3000/order/${user.id}`
-        )
-        console.log(`response.data (Order):${user.id}`)
-        console.log(`response.data (Order): ${response.data}`)
-        setOrder(response.data)
-      } catch (error) {
-        console.log(error)
+      // Make sure 'user' exists and use user.id or user._id correctly
+      if (user && (user.id || user._id)) {
+        try {
+          const userId = user.id || user._id
+          const response = await axios.get(
+            `http://localhost:3000/order/${userId}`
+          )
+          setOrder(response.data)
+        } catch (error) {
+          console.log(error)
+        }
       }
     }
     getOrder()
-  }, [2])
+  }, [user])
 
   useEffect(() => {
     const token = localStorage.getItem("token")
@@ -96,7 +98,7 @@ function App() {
           />
           <Route
             path="/:id"
-            element={<Restaurant restaurants={restaurants} />}
+            element={<Restaurant restaurants={restaurants} user={user} />}
           />
           <Route path="/addFood/:id" element={<AddFood />} />
           <Route

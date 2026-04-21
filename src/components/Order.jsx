@@ -1,30 +1,56 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import axios from "axios"
 
-const Order = () => {
-  const { id } = useParams()
-  const [bill, setBill] = useState(null)
+const Order = ({ cart, user, setCart, getOrder }) => {
+  const navigate = useNavigate()
 
-  useEffect(() => {
-    const getBill = async () => {
-      try {
-        let response = await axios.get(`http://localhost:3000/order/${userId}`)
-        setBill(response.data)
-      } catch (error) {
-        console.log(error)
-      }
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + item.price * item.count,
+    0
+  )
+
+  const handleSubmitOrder = async () => {
+    if (!user) {
+      return alert("please Sign In !!")
     }
-    getBill()
-  }, [])
 
-  // const getOreder
+    const orderData = {
+      totalPrice: totalPrice,
+      food: cart,
+      user: user.id,
+    }
+    try {
+      await axios.post(`http://localhost:3000/order/${user.id}`, orderData)
+      await getOrder()
+      setCart([])
+      navigate("/user")
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div>
       <h1>Cart</h1>
-      <h2>Your Order</h2>
+      {cart.length === 0 ? (
+        <h2>Your Order</h2>
+      ) : (
+        <>
+          {cart.map((item, index) => (
+            <div>
+              <p>
+                {item.name} x {item.count}{" "}
+              </p>
+              <p>$ {item.price * item.count}</p>
+            </div>
+          ))}
+          <h3>Total Price: $ {totalPrice}</h3>
+          <button onClick={handleSubmitOrder}>Confirm Order</button>
+        </>
+      )}
     </div>
   )
 }

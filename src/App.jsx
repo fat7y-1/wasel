@@ -10,11 +10,26 @@ import SignUp from "./components/SignUp"
 import Restaurant from "./components/Restaurant"
 import AddFood from "./components/AddFood"
 import { useNavigate } from "react-router-dom"
+import Order from "./components/Order"
 
 function App() {
   const [restaurants, setRestaurant] = useState([])
   const [user, setUser] = useState(null)
   const [order, setOrder] = useState([])
+  const [cart, setCart] = useState([])
+
+  const getOrder = async () => {
+    if (user._id) {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/order/${user._id}`
+        )
+        setOrder(response.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
 
   useEffect(() => {
     const getRestaurant = async () => {
@@ -40,15 +55,24 @@ function App() {
   }
 
   const checkToken = async () => {
-    const userData = await CheckSession()
-    setUser(userData)
+    const token = localStorage.getItem("token")
+
+    if (token) {
+      // console.log("USER: ", JSON.parse(atob(token.split(".")[1])))
+      setUser(JSON.parse(atob(token.split(".")[1])))
+    }
   }
+
+  useEffect(() => {
+    getOrder()
+  }, [user])
 
   const handleLogOut = () => {
     setUser(null)
     // console.log(user)
     localStorage.clear()
   }
+
   const RegisterUser = async (data) => {
     try {
       const res = await axios.post("http://localhost:3000/auth/sign-up", data)
@@ -57,24 +81,6 @@ function App() {
       throw error
     }
   }
-
-  useEffect(() => {
-    const getOrder = async () => {
-      // Make sure 'user' exists and use user.id or user._id correctly
-      if (user && (user.id || user._id)) {
-        try {
-          const userId = user.id || user._id
-          const response = await axios.get(
-            `http://localhost:3000/order/${userId}`
-          )
-          setOrder(response.data)
-        } catch (error) {
-          console.log(error)
-        }
-      }
-    }
-    getOrder()
-  }, [user])
 
   useEffect(() => {
     const token = localStorage.getItem("token")
@@ -98,7 +104,18 @@ function App() {
           />
           <Route
             path="/:id"
-            element={<Restaurant restaurants={restaurants} user={user} />}
+            element={<Restaurant cart={cart} setCart={setCart} user={user} />}
+          />
+          <Route
+            path="/order"
+            element={
+              <Order
+                cart={cart}
+                setCart={setCart}
+                user={user}
+                getOrder={getOrder}
+              />
+            }
           />
           <Route path="/addFood/:id" element={<AddFood />} />
           <Route

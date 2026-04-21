@@ -15,7 +15,7 @@ import UpdateFood from "./components/UpdateFood"
 function App() {
   const [restaurants, setRestaurant] = useState([])
   const [user, setUser] = useState(null)
-  const [order, setOrder] = useState([])
+  const [order, setOrder] = useState([{}])
 
   useEffect(() => {
     const getRestaurant = async () => {
@@ -40,6 +40,19 @@ function App() {
   }
   //check the token
   const checkToken = async () => {
+    const token = localStorage.getItem("token")
+
+    if (token) {
+      // console.log("USER: ", JSON.parse(atob(token.split(".")[1])))
+      setUser(JSON.parse(atob(token.split(".")[1])))
+    }
+  }
+
+  const handleLogOut = () => {
+    setUser(null)
+    localStorage.clear()
+  }
+  const RegisterUser = async (data) => {
     try {
       const userData = await axios.get("http://localhost:3000/auth/session")
       setUser(userData.data)
@@ -48,19 +61,17 @@ function App() {
     }
   }
 
-  //sign out
-  const handleLogOut = () => {
-    setUser(null)
-    localStorage.clear()
-  }
   useEffect(() => {
     const getOrder = async () => {
       try {
+        // console.log(user)
+        console.log(user.id)
         const response = await axios.get(
           `http://localhost:3000/order/${user.id}`
         )
-        console.log(`response.data (Order):${user.id}`)
-        console.log(`response.data (Order): ${response.data}`)
+        console.log(`response.data: ${response.data}`)
+        if (Object.keys(response.data[0]).length == 0)
+          return setOrder(["the array is empty"])
         setOrder(response.data)
       } catch (error) {
         console.log(error)
@@ -70,10 +81,7 @@ function App() {
   }, [user])
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
-    if (token) {
-      checkToken()
-    }
+    checkToken()
   }, [])
 
   axios.interceptors.request.use(

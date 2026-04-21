@@ -19,9 +19,10 @@ const SignIn = ({ setUser }) => {
       "http://localhost:3000/auth/sign-in",
       formValues
     )
-    console.log(userData)
+    // console.log(userData.data.user)
     setFormValues(initialState)
     setUser(userData.data.user)
+    localStorage.setItem("token", userData.data.token)
     navigate("/")
   }
 

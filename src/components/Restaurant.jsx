@@ -33,6 +33,18 @@ const Restaurant = ({ cart, setCart, user }) => {
     alert("added to cart")
   }
 
+  // const handleUpdateFood =
+  // handleUpdateFood = async (foodId) => {
+  //   try {
+  //     await axios.update(`http://localhost:3000/food/${foodId}`)
+  //   } catch (error) {
+
+  //   }
+  // }
+
+  if (!user) {
+    return <div>You must sign in or sign up if you dont have account</div>
+  }
   return (
     <div>
       <Link to={`/addFood/${id}`}>+ add New food to Menu</Link>

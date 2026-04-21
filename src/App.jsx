@@ -11,6 +11,8 @@ import Restaurant from "./components/Restaurant"
 import AddFood from "./components/AddFood"
 import { useNavigate } from "react-router-dom"
 import Order from "./components/Order"
+import UpdateFood from "./components/UpdateFood"
+import UpdateRestaurant from "./components/UpdateRestaurant"
 
 function App() {
   const [restaurants, setRestaurant] = useState([])
@@ -82,12 +84,57 @@ function App() {
     }
   }
 
+  const handleLogOut = () => {
+    setUser(null)
+    localStorage.clear()
+  }
+
   useEffect(() => {
     const token = localStorage.getItem("token")
     if (token) {
       checkToken()
     }
   }, [])
+    const getOrder = async () => {
+      if (!user) return
+      try {
+        // console.log(user)
+        console.log(user.id)
+        const response = await axios.get(
+          `http://localhost:3000/order/${user.id}`
+        )
+        console.log(`response.data: ${response.data}`)
+        if (Object.keys(response.data[0]).length == 0)
+          return setOrder([""])
+        setOrder(response.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getOrder()
+  }, [user])
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (token) {
+      checkToken()
+    }
+  }, [])
+
+  axios.interceptors.request.use(
+    async (config) => {
+      const token = localStorage.getItem("token")
+      if (token) {
+        config.headers["authorization"] = `Bearer ${token}`
+      }
+      return config
+    },
+    async (error) => {
+      console.log({ msg: "Axios Interceptor Error!", error })
+      throw error
+    }
+  )
+  console.log(user)
   return (
     <>
       <div>
@@ -127,6 +174,9 @@ function App() {
             path="/sign-up"
             element={<SignUp RegisterUser={RegisterUser} />}
           />
+
+          <Route path="/food/update/:id" element={<UpdateFood />} />
+          <Route path="/restaurant/update/:id" element={<UpdateRestaurant />} />
         </Routes>
       </div>
     </>

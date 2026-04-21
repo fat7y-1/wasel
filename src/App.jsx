@@ -16,7 +16,7 @@ import UpdateRestaurant from "./components/UpdateRestaurant"
 function App() {
   const [restaurants, setRestaurant] = useState([])
   const [user, setUser] = useState(null)
-  const [order, setOrder] = useState([])
+  const [order, setOrder] = useState([{}])
 
   useEffect(() => {
     const getRestaurant = async () => {
@@ -58,9 +58,14 @@ function App() {
     const getOrder = async () => {
       if (!user) return
       try {
+        // console.log(user)
+        console.log(user.id)
         const response = await axios.get(
           `http://localhost:3000/order/${user.id}`
         )
+        console.log(`response.data: ${response.data}`)
+        if (Object.keys(response.data[0]).length == 0)
+          return setOrder(["the array is empty"])
         setOrder(response.data)
       } catch (error) {
         console.log(error)
@@ -89,7 +94,7 @@ function App() {
       throw error
     }
   )
-
+  console.log(user)
   return (
     <>
       <div>

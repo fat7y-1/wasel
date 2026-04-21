@@ -40,25 +40,17 @@ function App() {
   }
   //check the token
   const checkToken = async () => {
-    const token = localStorage.getItem("token")
-
-    if (token) {
-      // console.log("USER: ", JSON.parse(atob(token.split(".")[1])))
-      setUser(JSON.parse(atob(token.split(".")[1])))
-    }
-  }
-
-  const handleLogOut = () => {
-    setUser(null)
-    localStorage.clear()
-  }
-  const RegisterUser = async (data) => {
     try {
       const userData = await axios.get("http://localhost:3000/auth/session")
       setUser(userData.data)
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const handleLogOut = () => {
+    setUser(null)
+    localStorage.clear()
   }
 
   useEffect(() => {
@@ -81,7 +73,10 @@ function App() {
   }, [user])
 
   useEffect(() => {
-    checkToken()
+    const token = localStorage.getItem("token")
+    if (token) {
+      checkToken()
+    }
   }, [])
 
   axios.interceptors.request.use(
@@ -99,6 +94,7 @@ function App() {
       throw error
     }
   )
+  console.log(user)
   return (
     <>
       <div>

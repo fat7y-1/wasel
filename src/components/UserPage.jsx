@@ -1,4 +1,7 @@
 const UserPage = ({ user, order }) => {
+  if (!user) {
+    return <div>loading.........</div>
+  }
   console.log(user)
   console.log(order)
 

@@ -34,7 +34,7 @@ const Home = ({ restaurants, handleDeleteRestaurant, user }) => {
       <div>
         <h1>Wasel </h1>
 
-        {/* <div>
+        <div>
           {restaurants.map((restaurant) => (
             <>
               <Link to={`/${restaurant._id}`}>
@@ -44,10 +44,10 @@ const Home = ({ restaurants, handleDeleteRestaurant, user }) => {
                   <p>Location:{restaurant.location} </p>
                   <p>Phone Number: {restaurant.phoneNumber}</p>
                 </div>
-              </Link> */}
-        {/* </>
-          ))} */}
-        {/* </div> */}
+              </Link>
+            </>
+          ))}
+        </div>
       </div>
     )
   }

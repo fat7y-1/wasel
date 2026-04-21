@@ -116,13 +116,11 @@ function App() {
             element={<UserPage user={user} order={order} />}
           />
           <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route
+
+          {/* <Route
             path="/sign-up"
             element={<SignUp RegisterUser={RegisterUser} />}
-          />
+          /> */}
 
           <Route path="/food/update/:id" element={<UpdateFood />} />
         </Routes>

@@ -39,6 +39,9 @@ const Restaurant = ({ user }) => {
   //   }
   // }
 
+  if (!user) {
+    return <div>You must sign in or sign up if you dont have account</div>
+  }
   return (
     <>
       <div>

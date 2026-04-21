@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { useParams, useNavigate } from "react-router-dom"
-const AddFood = () => {
-  const navigate = useNavigate()
+import AddFood from "./AddFood"
+import { useParams } from "react-router-dom"
+import Restaurant from "./Restaurant"
+
+const UpdateFood = () => {
   const { id } = useParams()
-  const [foodForm, setFoodForm] = useState([])
-  // const [foodList, setFoodList] = useState([]),
-  // const [editingFood, setEditingFood] = useState(null)
+
   const init = {
     name: "",
     price: 0,
@@ -14,8 +14,10 @@ const AddFood = () => {
     image: "",
     restaurant: id,
   }
+  const [foodForm, setFoodForm] = useState(init)
+
   useEffect(() => {
-    const getFood = async () => {
+    const getfoodForm = async () => {
       try {
         let response = await axios.get(`http://localhost:3000/food/${id}`)
         setFoodForm(response.data)
@@ -24,23 +26,13 @@ const AddFood = () => {
         console.log(error)
       }
     }
-    getFood()
+    getfoodForm()
   }, [])
 
-  // const handleSubmit = async(event) => {
-  //   event.preventDefault()
-  //   try {
-  //     await axios.put(`http://localhost:3000/food/${id}`, foodList`)
-  //       navigate(`/${id}`)
-  //   } catch (error) {
-  //    console.log(error)
-
-  //   }
-  // }
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      await axios.post(`http://localhost:3000/food/${id}`, foodForm)
+      await axios.put(`http://localhost:3000/food/${id}`, foodForm)
       navigate(`/${id}`)
     } catch (error) {
       console.log(error)
@@ -55,7 +47,7 @@ const AddFood = () => {
 
   return (
     <>
-      <h1>Add new food</h1>
+      <h1>Update Food</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <input
@@ -78,21 +70,16 @@ const AddFood = () => {
           value={foodForm.description}
         ></textarea>
         <label htmlFor="image">Image</label>
-        <input
-          type="text"
-          onChange={handleChange}
-          name="image"
-          value={foodForm.image}
-        />
-        <button type="submit">AddFood</button>
-        {/* <button
+        <input type="text" onChange={handleChange} value={foodForm.image} />
+        <button type="submit">UPDATE</button>
+        <button
           onClick={() =>
             handleUpdateFood(food._id, { name: "Updated Name", price: [] })
           }
-        ></button> */}
+        ></button>
       </form>
     </>
   )
 }
 
-export default AddFood
+export default UpdateFood

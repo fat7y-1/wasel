@@ -49,7 +49,8 @@ const Home = ({ restaurants, handleDeleteRestaurant, user }) => {
           ))}
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
+
 export default Home

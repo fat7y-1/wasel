@@ -61,11 +61,6 @@ function App() {
     }
   }
 
-  //sign out
-  const handleLogOut = () => {
-    setUser(null)
-    localStorage.clear()
-  }
   useEffect(() => {
     const getOrder = async () => {
       try {

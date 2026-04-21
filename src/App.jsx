@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom"
 function App() {
   const [restaurants, setRestaurant] = useState([])
   const [user, setUser] = useState(null)
-  const [order, setOrder] = useState([])
+  const [order, setOrder] = useState([{}])
 
   useEffect(() => {
     const getRestaurant = async () => {
@@ -40,13 +40,16 @@ function App() {
   }
 
   const checkToken = async () => {
-    const userData = await CheckSession()
-    setUser(userData)
+    const token = localStorage.getItem("token")
+
+    if (token) {
+      // console.log("USER: ", JSON.parse(atob(token.split(".")[1])))
+      setUser(JSON.parse(atob(token.split(".")[1])))
+    }
   }
 
   const handleLogOut = () => {
     setUser(null)
-    // console.log(user)
     localStorage.clear()
   }
   const RegisterUser = async (data) => {
@@ -61,24 +64,38 @@ function App() {
   useEffect(() => {
     const getOrder = async () => {
       try {
+        // console.log(user)
+        console.log(user.id)
         const response = await axios.get(
           `http://localhost:3000/order/${user.id}`
         )
-        console.log(`response.data (Order):${user.id}`)
-        console.log(`response.data (Order): ${response.data}`)
+        console.log(`response.data: ${response.data}`)
+        if (Object.keys(response.data[0]).length == 0)
+          return setOrder(["the array is empty"])
         setOrder(response.data)
       } catch (error) {
         console.log(error)
       }
     }
     getOrder()
-  }, [2])
+  }, [user])
+
+  // useEffect(() => {
+  //   const getDriver = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `http://localhost:3000/driver/${user.id}`
+  //       )
+  //       setDriver(response.data)
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   }
+  //   getDriver()
+  // }, [user])
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
-    if (token) {
-      checkToken()
-    }
+    checkToken()
   }, [])
   return (
     <>
@@ -91,6 +108,7 @@ function App() {
               <Home
                 restaurants={restaurants}
                 handleDeleteRestaurant={handleDeleteRestaurant}
+                user={user}
               />
             }
           />

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-const Home = ({ restaurants, handleDeleteRestaurant }) => {
+const Home = ({ restaurants, handleDeleteRestaurant, user }) => {
   return (
     <div>
       <h1>Wasel </h1>
@@ -8,7 +8,7 @@ const Home = ({ restaurants, handleDeleteRestaurant }) => {
       <div>
         {restaurants.map((restaurant) => (
           <>
-            <Link to={`/${restaurant._id}`}>
+            <Link to={user !== null ? `/${restaurant._id}` : "/sign-in"}>
               <div key={restaurant._id}>
                 <h3>{restaurant.name}</h3>
                 <img src={restaurant.logo} alt={restaurant.name} />

@@ -11,6 +11,7 @@ import Restaurant from "./components/Restaurant"
 import AddFood from "./components/AddFood"
 import { useNavigate } from "react-router-dom"
 import UpdateFood from "./components/UpdateFood"
+import UpdateRestaurant from "./components/UpdateRestaurant"
 
 function App() {
   const [restaurants, setRestaurant] = useState([])
@@ -38,7 +39,7 @@ function App() {
       console.log(error)
     }
   }
-  //check the token
+
   const checkToken = async () => {
     try {
       const userData = await axios.get("http://localhost:3000/auth/session")
@@ -55,6 +56,7 @@ function App() {
 
   useEffect(() => {
     const getOrder = async () => {
+      if (!user) return
       try {
         // console.log(user)
         console.log(user.id)
@@ -63,7 +65,7 @@ function App() {
         )
         console.log(`response.data: ${response.data}`)
         if (Object.keys(response.data[0]).length == 0)
-          return setOrder(["the array is empty"])
+          return setOrder([""])
         setOrder(response.data)
       } catch (error) {
         console.log(error)
@@ -82,11 +84,9 @@ function App() {
   axios.interceptors.request.use(
     async (config) => {
       const token = localStorage.getItem("token")
-
       if (token) {
         config.headers["authorization"] = `Bearer ${token}`
       }
-
       return config
     },
     async (error) => {
@@ -120,7 +120,9 @@ function App() {
             element={<UserPage user={user} order={order} />}
           />
           <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
-          <Route path="/sign-up" element={<SignUp />} />
+
+          <Route path="/food/update/:id" element={<UpdateFood />} />
+          <Route path="/restaurant/update/:id" element={<UpdateRestaurant />} />
         </Routes>
       </div>
     </>

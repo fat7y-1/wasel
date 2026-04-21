@@ -22,7 +22,6 @@ function App() {
       try {
         const response = await axios.get(`http://localhost:3000/restaurant`)
         setRestaurant(response.data)
-        // console.log(response.data)
       } catch (error) {
         console.log(error)
       }
@@ -39,26 +38,21 @@ function App() {
       console.log(error)
     }
   }
-
+  //check the token
   const checkToken = async () => {
-    const userData = await CheckSession()
-    setUser(userData)
-  }
-
-  const handleLogOut = () => {
-    setUser(null)
-    // console.log(user)
-    localStorage.clear()
-  }
-  const RegisterUser = async (data) => {
     try {
-      const res = await axios.post("http://localhost:3000/auth/sign-up", data)
-      return res.data
+      const userData = await axios.get("http://localhost:3000/auth/session")
+      setUser(userData.data)
     } catch (error) {
-      throw error
+      console.log(error)
     }
   }
 
+  //sign out
+  const handleLogOut = () => {
+    setUser(null)
+    localStorage.clear()
+  }
   useEffect(() => {
     const getOrder = async () => {
       try {
@@ -73,7 +67,7 @@ function App() {
       }
     }
     getOrder()
-  }, [2])
+  }, [user])
 
   useEffect(() => {
     const token = localStorage.getItem("token")
@@ -81,6 +75,22 @@ function App() {
       checkToken()
     }
   }, [])
+
+  axios.interceptors.request.use(
+    async (config) => {
+      const token = localStorage.getItem("token")
+
+      if (token) {
+        config.headers["authorization"] = `Bearer ${token}`
+      }
+
+      return config
+    },
+    async (error) => {
+      console.log({ msg: "Axios Interceptor Error!", error })
+      throw error
+    }
+  )
   return (
     <>
       <div>
@@ -92,12 +102,13 @@ function App() {
               <Home
                 restaurants={restaurants}
                 handleDeleteRestaurant={handleDeleteRestaurant}
+                user={user}
               />
             }
           />
           <Route
             path="/:id"
-            element={<Restaurant restaurants={restaurants} />}
+            element={<Restaurant restaurants={restaurants} user={user} />}
           />
           <Route path="/addFood/:id" element={<AddFood />} />
           <Route
@@ -105,6 +116,9 @@ function App() {
             element={<UserPage user={user} order={order} />}
           />
           <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
+          <Route path="/sign-up" element={<SignUp />} />
           <Route
             path="/sign-up"
             element={<SignUp RegisterUser={RegisterUser} />}

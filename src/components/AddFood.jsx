@@ -78,7 +78,12 @@ const AddFood = () => {
           value={foodForm.description}
         ></textarea>
         <label htmlFor="image">Image</label>
-        <input type="text" onChange={handleChange} value={foodForm.image} />
+        <input
+          type="text"
+          onChange={handleChange}
+          name="image"
+          value={foodForm.image}
+        />
         <button type="submit">AddFood</button>
         {/* <button
           onClick={() =>

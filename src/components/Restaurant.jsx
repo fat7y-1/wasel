@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import axios from "axios"
 import AddFood from "./AddFood"
 
-const Restaurant = () => {
+const Restaurant = ({ user }) => {
   const { id } = useParams()
   const [foods, setFoods] = useState([])
   // const [foodsUpdate, setUpdateFood] = useState([])
@@ -15,7 +15,6 @@ const Restaurant = () => {
       try {
         let response = await axios.get(`http://localhost:3000/food/${id}`)
         setFoods(response.data)
-        console.log(response.data)
       } catch (error) {
         console.log(error)
       }
@@ -43,7 +42,11 @@ const Restaurant = () => {
   return (
     <>
       <div>
-        <Link to={`/addFood/${id}`}>ADD Food</Link>
+        {user.admin === true ? (
+          <Link to={`/addFood/${id}`}>ADD Food</Link>
+        ) : (
+          <></>
+        )}
         {foods.map((food) => (
           <div>
             <h1>{food.name}</h1>

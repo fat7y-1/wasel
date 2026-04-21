@@ -24,15 +24,6 @@ const UserPage = ({ user, order }) => {
           <br />
         </>
       ))}
-      {/* {order.map((details) => (
-        <div>
-
-
-
-          <h4>Your driver is: {details.driver.driverName}</h4>
-          <h4>contact your driver: {details.driver.phoneNumber}.phoneNumber</h4>
-        </div>
-      ))} */}
     </>
   )
 }

@@ -7,7 +7,16 @@ import AddFood from "./AddFood"
 const Restaurant = ({ user }) => {
   const { id } = useParams()
   const [foods, setFoods] = useState([])
-  // const [foodsUpdate, setUpdateFood] = useState([])
+
+  const init = {
+    name: "",
+    price: 0,
+    description: "",
+    image: "",
+    restaurant: id,
+  }
+
+  const [foodForm, setFoodForm] = useState(init)
 
   console.log(id)
   useEffect(() => {
@@ -22,6 +31,19 @@ const Restaurant = ({ user }) => {
     getFood()
   }, [])
 
+  useEffect(() => {
+    const getfoodForm = async () => {
+      try {
+        let response = await axios.get(`http://localhost:3000/food/${id}`)
+        setFoodForm(response.data)
+        console.log(response.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getfoodForm()
+  }, [])
+
   const handleDeleteFood = async (foodId) => {
     try {
       await axios.delete(`http://localhost:3000/food/${foodId}`)
@@ -31,6 +53,7 @@ const Restaurant = ({ user }) => {
     }
   }
 
+  // const handleUpdateFood =
   // handleUpdateFood = async (foodId) => {
   //   try {
   //     await axios.update(`http://localhost:3000/food/${foodId}`)

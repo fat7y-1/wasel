@@ -11,6 +11,7 @@ import Restaurant from "./components/Restaurant"
 import AddFood from "./components/AddFood"
 import { useNavigate } from "react-router-dom"
 import UpdateFood from "./components/UpdateFood"
+import UpdateRestaurant from "./components/UpdateRestaurant"
 
 function App() {
   const [restaurants, setRestaurant] = useState([])
@@ -38,7 +39,7 @@ function App() {
       console.log(error)
     }
   }
-  //check the token
+
   const checkToken = async () => {
     try {
       const userData = await axios.get("http://localhost:3000/auth/session")
@@ -48,19 +49,18 @@ function App() {
     }
   }
 
-  //sign out
   const handleLogOut = () => {
     setUser(null)
     localStorage.clear()
   }
+
   useEffect(() => {
     const getOrder = async () => {
+      if (!user) return
       try {
         const response = await axios.get(
           `http://localhost:3000/order/${user.id}`
         )
-        console.log(`response.data (Order):${user.id}`)
-        console.log(`response.data (Order): ${response.data}`)
         setOrder(response.data)
       } catch (error) {
         console.log(error)
@@ -79,11 +79,9 @@ function App() {
   axios.interceptors.request.use(
     async (config) => {
       const token = localStorage.getItem("token")
-
       if (token) {
         config.headers["authorization"] = `Bearer ${token}`
       }
-
       return config
     },
     async (error) => {
@@ -91,6 +89,7 @@ function App() {
       throw error
     }
   )
+
   return (
     <>
       <div>
@@ -117,12 +116,8 @@ function App() {
           />
           <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
 
-          {/* <Route
-            path="/sign-up"
-            element={<SignUp RegisterUser={RegisterUser} />}
-          /> */}
-
           <Route path="/food/update/:id" element={<UpdateFood />} />
+          <Route path="/restaurant/update/:id" element={<UpdateRestaurant />} />
         </Routes>
       </div>
     </>

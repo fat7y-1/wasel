@@ -43,9 +43,23 @@ const Restaurant = ({ user }) => {
             <img src={food.image} alt={food.name} />
             <p>{food.description}</p>
             <p>{food.price}</p>
+            <Link to={`/food/update/${food._id}`}>Update</Link>
           </div>
+
+          //   <div>
+          // <Link to={`/updateFood/${id}`}>UPDATE Food</Link>
+          // {foods.map((food) => (
+          //   <div>
+          //     <h1>{food.name}</h1>
+          //     <img src={food.image} alt={food.name} />
+          //     <p>{food.description}</p>
+          //     <p>{food.price}</p>
+          //   </div>
         ))}
       </div>
+      {/* <button onClick={() => handleUpdateFood(food._id, { name: "Updated Name", price: [] })}>
+  Save Changes
+</button> */}
     </>
   )
 }

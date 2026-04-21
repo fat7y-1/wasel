@@ -60,25 +60,6 @@ function App() {
     }
   }, [])
   console.log(user)
-  useEffect(() => {
-    const getOrder = async () => {
-      // Check for BOTH id and _id just to be safe
-      const userId = user?.id || user?._id
-
-      if (userId) {
-        try {
-          const response = await axios.get(
-            `http://localhost:3000/order/${userId}`
-          )
-          console.log(response)
-          setOrder(response.data)
-        } catch (error) {
-          console.error("Order fetch error:", error)
-        }
-      }
-    }
-    getOrder()
-  }, [user]) // Runs whenever user state is updated (Login or Session check)
 
   axios.interceptors.request.use(
     async (config) => {
@@ -130,6 +111,7 @@ function App() {
             path="/user"
             element={<UserPage user={user} order={order} />}
           />
+          <Route path="/food/update/:id" element={<UpdateFood />} />
           <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
           <Route path="/sign-up" element={<SignUp />} />
         </Routes>

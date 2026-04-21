@@ -43,7 +43,11 @@ const Restaurant = ({ user }) => {
             <img src={food.image} alt={food.name} />
             <p>{food.description}</p>
             <p>{food.price}</p>
-            <Link to={`/food/update/${food._id}`}>Update</Link>
+            {user.admin === true ? (
+              <Link to={`/food/update/${food._id}`}>Update</Link>
+            ) : (
+              <></>
+            )}
           </div>
 
           //   <div>

@@ -3,19 +3,14 @@ import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
 import axios from "axios"
 import AddFood from "./AddFood"
-
-const Restaurant = () => {
+const Restaurant = ({ user }) => {
   const { id } = useParams()
   const [foods, setFoods] = useState([])
-  // const [foodsUpdate, setUpdateFood] = useState([])
-
-  console.log(id)
   useEffect(() => {
     const getFood = async () => {
       try {
         let response = await axios.get(`http://localhost:3000/food/${id}`)
         setFoods(response.data)
-        console.log(response.data)
       } catch (error) {
         console.log(error)
       }
@@ -31,19 +26,17 @@ const Restaurant = () => {
       console.log(error)
     }
   }
-
-  // handleUpdateFood = async (foodId) => {
-  //   try {
-  //     await axios.update(`http://localhost:3000/food/${foodId}`)
-  //   } catch (error) {
-
-  //   }
-  // }
-
+  if (!user) {
+    return <div>You must sign in or sign up if you dont have account</div>
+  }
   return (
     <>
       <div>
-        <Link to={`/addFood/${id}`}>ADD Food</Link>
+        {user.admin === true ? (
+          <Link to={`/addFood/${id}`}>ADD Food</Link>
+        ) : (
+          <></>
+        )}
         {foods.map((food) => (
           <div>
             <h1>{food.name}</h1>

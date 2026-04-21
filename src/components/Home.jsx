@@ -11,7 +11,11 @@ const Home = ({ restaurants, handleDeleteRestaurant }) => {
             <Link to={`/${restaurant._id}`}>
               <div key={restaurant._id}>
                 <h3>{restaurant.name}</h3>
-                <img src={restaurant.logo} alt={restaurant.name} />
+                <img
+                  src={restaurant.logo}
+                  alt={restaurant.name}
+                  width="300px"
+                />
                 <p>Location:{restaurant.location} </p>
                 <p>Phone Number: {restaurant.phoneNumber}</p>
               </div>

@@ -10,6 +10,7 @@ import SignUp from "./components/SignUp"
 import Restaurant from "./components/Restaurant"
 import AddFood from "./components/AddFood"
 import { useNavigate } from "react-router-dom"
+import UpdateFood from "./components/UpdateFood"
 
 function App() {
   const [restaurants, setRestaurant] = useState([])
@@ -108,6 +109,8 @@ function App() {
             path="/sign-up"
             element={<SignUp RegisterUser={RegisterUser} />}
           />
+
+          <Route path="/food/update/:id" element={<UpdateFood />} />
         </Routes>
       </div>
     </>

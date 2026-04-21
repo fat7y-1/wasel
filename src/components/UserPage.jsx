@@ -2,28 +2,26 @@ const UserPage = ({ user, order }) => {
   if (!user) {
     return <div>loading.........</div>
   }
+
   console.log(user)
   console.log(order)
 
   return (
     <>
-      <h1>Your list of orders {user.username}</h1>
+      <h1>Welcome {user.username} to List Orders</h1>
+      {order.length === 0} ? (<h3>You have no order yet</h3>
+      ):(
       {order.map((ord) => (
-        <>
-          <h3>your Order is:</h3>
+        <div key={ord._id}>
           <ul>
-            {ord.food.map((item) => (
-              <li>
-                {item.foodItem.name} quantity:{item.count}
-              </li>
+            {ord.food.map((item, index) => (
+              <li key={index}>{item.foodItem.name}</li>
             ))}
           </ul>
-          <h4>Total Price: {ord.totalPrice}</h4>
-          <h4>Your driver is: {ord.driver.driverName}</h4>
-          <h4>contact your driver: {ord.driver.phoneNumber}</h4>
-          <br />
-        </>
+          <p>Total Price: $ {item.totalPrice}</p>
+        </div>
       ))}
+      )
     </>
   )
 }

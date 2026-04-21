@@ -21,10 +21,10 @@ function App() {
   const [cart, setCart] = useState([])
 
   const getOrder = async () => {
-    if (user._id) {
+    if (user.id) {
       try {
         const response = await axios.get(
-          `http://localhost:3000/order/${user._id}`
+          `http://localhost:3000/order/${user.id}`
         )
         setOrder(response.data)
       } catch (error) {
@@ -43,7 +43,20 @@ function App() {
         console.log(error)
       }
     }
+    const checkToken = async () => {
+      const token = localStorage.getItem("token")
+
+      if (token) {
+        try {
+          setUser(JSON.parse(atob(token.split(".")[1])))
+        } catch (error) {
+          localStorage.clear()
+        }
+        // console.log("USER: ", JSON.parse(atob(token.split(".")[1])))
+      }
+    }
     getRestaurant()
+    checkToken()
   }, [])
 
   const handleDeleteRestaurant = async (restId) => {
@@ -56,15 +69,6 @@ function App() {
     }
   }
 
-  const checkToken = async () => {
-    const token = localStorage.getItem("token")
-
-    if (token) {
-      // console.log("USER: ", JSON.parse(atob(token.split(".")[1])))
-      setUser(JSON.parse(atob(token.split(".")[1])))
-    }
-  }
-
   useEffect(() => {
     getOrder()
   }, [user])
@@ -74,7 +78,6 @@ function App() {
     // console.log(user)
     localStorage.clear()
   }
-
   const RegisterUser = async (data) => {
     try {
       const res = await axios.post("http://localhost:3000/auth/sign-up", data)
@@ -84,57 +87,12 @@ function App() {
     }
   }
 
-  const handleLogOut = () => {
-    setUser(null)
-    localStorage.clear()
-  }
-
-  useEffect(() => {
-    const token = localStorage.getItem("token")
-    if (token) {
-      checkToken()
-    }
-  }, [])
-    const getOrder = async () => {
-      if (!user) return
-      try {
-        // console.log(user)
-        console.log(user.id)
-        const response = await axios.get(
-          `http://localhost:3000/order/${user.id}`
-        )
-        console.log(`response.data: ${response.data}`)
-        if (Object.keys(response.data[0]).length == 0)
-          return setOrder([""])
-        setOrder(response.data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getOrder()
-  }, [user])
-
-  useEffect(() => {
-    const token = localStorage.getItem("token")
-    if (token) {
-      checkToken()
-    }
-  }, [])
-
-  axios.interceptors.request.use(
-    async (config) => {
-      const token = localStorage.getItem("token")
-      if (token) {
-        config.headers["authorization"] = `Bearer ${token}`
-      }
-      return config
-    },
-    async (error) => {
-      console.log({ msg: "Axios Interceptor Error!", error })
-      throw error
-    }
-  )
-  console.log(user)
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token")
+  //   if (token) {
+  //     checkToken()
+  //   }
+  // }, [])
   return (
     <>
       <div>

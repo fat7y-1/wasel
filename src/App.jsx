@@ -119,6 +119,7 @@ function App() {
 
           <Route path="/food/update/:id" element={<UpdateFood />} />
           <Route path="/restaurant/update/:id" element={<UpdateRestaurant />} />
+          <Route path="/addDriver" element={<AddDriver />} />
         </Routes>
       </div>
     </>

@@ -14,20 +14,16 @@ const SignIn = ({ setUser }) => {
   }
 
   const handleSubmit = async (e) => {
-    try {
-      e.preventDefault()
-      const userData = await axios.post(
-        "http://localhost:3000/auth/sign-in",
-        formValues
-      )
-      localStorage.setItem("token", userData.data.token)
-      console.log(userData)
-      setFormValues(initialState)
-      setUser(userData.data.user)
-      navigate("/")
-    } catch (error) {
-      console.log(error)
-    }
+    e.preventDefault()
+    const userData = await axios.post(
+      "http://localhost:3000/auth/sign-in",
+      formValues
+    )
+    // console.log(userData.data.user)
+    setFormValues(initialState)
+    setUser(userData.data.user)
+    localStorage.setItem("token", userData.data.token)
+    navigate("/")
   }
 
   return (

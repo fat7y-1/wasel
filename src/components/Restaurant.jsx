@@ -1,81 +1,64 @@
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
-import { Link } from "react-router-dom"
+import { useParams, Link, useNavigate } from "react-router-dom"
 import axios from "axios"
-import AddFood from "./AddFood"
+import UserPage from "./UserPage"
 
-const Restaurant = ({ user }) => {
+const Restaurant = ({ cart, setCart, user }) => {
   const { id } = useParams()
-  const [foods, setFoods] = useState([])
+  const [quantity, setQuantity] = useState(1)
+  const navigate = useNavigate()
+  const [listFood, setListFood] = useState([])
 
-  const init = {
-    name: "",
-    price: 0,
-    description: "",
-    image: "",
-    restaurant: id,
-  }
-
-  const [foodForm, setFoodForm] = useState(init)
-
-  console.log(id)
   useEffect(() => {
     const getFood = async () => {
       try {
         let response = await axios.get(`http://localhost:3000/food/${id}`)
-        setFoods(response.data)
+        setListFood(response.data)
       } catch (error) {
         console.log(error)
       }
     }
     getFood()
-  }, [])
+  }, [id])
 
-  useEffect(() => {
-    const getfoodForm = async () => {
-      try {
-        let response = await axios.get(`http://localhost:3000/food/${id}`)
-        setFoodForm(response.data)
-        console.log(response.data)
-      } catch (error) {
-        console.log(error)
-      }
+  const addCart = (food, selectQuantity) => {
+    const newOrderItem = {
+      foodItem: food._id,
+      count: selectQuantity,
+      price: food.price,
+      name: food.name,
     }
-    getfoodForm()
-  }, [])
-
-  const handleDeleteFood = async (foodId) => {
-    try {
-      await axios.delete(`http://localhost:3000/food/${foodId}`)
-      setFoods(foods.filter((food) => food._id !== foodId))
-    } catch (error) {
-      console.log(error)
-    }
+    setCart([...cart, newOrderItem])
+    alert(`You Select ${selectQuantity} of ${food.name}`)
+    alert("added to cart")
   }
 
   if (!user) {
     return <div>You must sign in or sign up if you dont have account</div>
   }
   return (
-    <>
+    <div>
+      <Link to={`/addFood/${id}`}>+ add New food to Menu</Link>
+      <Link to={`/order`}>View Your Cart</Link>
       <div>
-        {user.admin === true ? (
-          <Link to={`/addFood/${id}`}>ADD Food</Link>
-        ) : (
-          <></>
-        )}
-        {Array.isArray(foods) &&
-          foods.map((food) => (
-            <div key={food._id}>
-              <h1>{food.name}</h1>
-              <img src={food.image} alt={food.name} />
-              <p>{food.description}</p>
-              <p>{food.price}</p>
-              <Link to={`/food/update/${food._id}`}>Update</Link>
-            </div>
-          ))}
+        {listFood.map((food) => (
+          <div key={food._id}>
+            <h1>{food.name}</h1>
+            <img src={food.image} alt={food.name} />
+            <p>$ {food.price}</p>
+            <label htmlFor="quantity">quantity:</label>
+            <input
+              type="number"
+              id={food._id}
+              min="1"
+              defaultValue={1}
+              onChange={(e) => setQuantity(parseInt(e.target.value))}
+            />
+            <button onClick={() => addCart(food, quantity)}>ADD CART</button>
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   )
 }
 

@@ -41,11 +41,10 @@ function App() {
   }
 
   const checkToken = async () => {
-    try {
-      const userData = await axios.get("http://localhost:3000/auth/session")
-      setUser(userData.data)
-    } catch (error) {
-      console.log(error)
+    const token = localStorage.getItem("token")
+
+    if (token) {
+      setUser(JSON.parse(atob(token.split(".")[1])))
     }
   }
 
@@ -64,8 +63,7 @@ function App() {
           `http://localhost:3000/order/${user.id}`
         )
         console.log(`response.data: ${response.data}`)
-        if (Object.keys(response.data[0]).length == 0)
-          return setOrder(["the array is empty"])
+        if (Object.keys(response.data[0]).length == 0) return setOrder([""])
         setOrder(response.data)
       } catch (error) {
         console.log(error)

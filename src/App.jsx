@@ -41,17 +41,17 @@ function App() {
   const checkToken = async () => {
     try {
       const userData = await axios.get("http://localhost:3000/auth/session")
-      setUser(userData)
+      setUser(userData.data)
     } catch (error) {
       console.log(error)
     }
   }
+
   //sign out
   const handleLogOut = () => {
     setUser(null)
     localStorage.clear()
   }
-  console.log(user)
   useEffect(() => {
     const getOrder = async () => {
       try {
@@ -66,7 +66,7 @@ function App() {
       }
     }
     getOrder()
-  }, [2])
+  }, [user])
 
   useEffect(() => {
     const token = localStorage.getItem("token")
@@ -101,12 +101,13 @@ function App() {
               <Home
                 restaurants={restaurants}
                 handleDeleteRestaurant={handleDeleteRestaurant}
+                user={user}
               />
             }
           />
           <Route
             path="/:id"
-            element={<Restaurant restaurants={restaurants} />}
+            element={<Restaurant restaurants={restaurants} user={user} />}
           />
           <Route path="/addFood/:id" element={<AddFood />} />
           <Route

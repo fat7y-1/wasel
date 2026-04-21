@@ -8,6 +8,7 @@ const UserPage = ({ user, order }) => {
   return (
     <>
       <h1>Your list of orders {user.username}</h1>
+      {/* <h1>{order.totalPrice}</h1> */}
       {order.map((ord) => (
         <>
           <h3>your Order is:</h3>

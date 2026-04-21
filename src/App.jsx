@@ -10,19 +10,22 @@ import SignUp from "./components/SignUp"
 import Restaurant from "./components/Restaurant"
 import AddFood from "./components/AddFood"
 import { useNavigate } from "react-router-dom"
+// import Order from "./components/Order"
 import UpdateFood from "./components/UpdateFood"
 import UpdateRestaurant from "./components/UpdateRestaurant"
 
 function App() {
   const [restaurants, setRestaurant] = useState([])
   const [user, setUser] = useState(null)
-  const [order, setOrder] = useState([{}])
+  const [order, setOrder] = useState([])
+  const [cart, setCart] = useState([])
 
   useEffect(() => {
     const getRestaurant = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/restaurant`)
         setRestaurant(response.data)
+        // console.log(response.data)
       } catch (error) {
         console.log(error)
       }
@@ -44,33 +47,38 @@ function App() {
     const token = localStorage.getItem("token")
 
     if (token) {
+      // console.log("USER: ", JSON.parse(atob(token.split(".")[1])))
       setUser(JSON.parse(atob(token.split(".")[1])))
     }
   }
 
   const handleLogOut = () => {
     setUser(null)
+    // console.log(user)
     localStorage.clear()
   }
-
-  useEffect(() => {
-    const getOrder = async () => {
-      if (!user) return
-      try {
-        // console.log(user)
-        console.log(user.id)
-        const response = await axios.get(
-          `http://localhost:3000/order/${user.id}`
-        )
-        console.log(`response.data: ${response.data}`)
-        if (Object.keys(response.data[0]).length == 0) return setOrder([""])
-        setOrder(response.data)
-      } catch (error) {
-        console.log(error)
-      }
+  const RegisterUser = async (data) => {
+    try {
+      const res = await axios.post("http://localhost:3000/auth/sign-up", data)
+      return res.data
+    } catch (error) {
+      throw error
     }
-    getOrder()
-  }, [user])
+  }
+
+  // const getOrder = async () => {
+  //   if (user) {
+  //     try {
+  //       const response = await axios.get(
+  //         `http://localhost:3000/order/${user._id}`
+  //       )
+  //       setOrder(response.data)
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   }
+  //   getOrder()
+  // }
 
   useEffect(() => {
     const token = localStorage.getItem("token")
@@ -78,21 +86,6 @@ function App() {
       checkToken()
     }
   }, [])
-
-  axios.interceptors.request.use(
-    async (config) => {
-      const token = localStorage.getItem("token")
-      if (token) {
-        config.headers["authorization"] = `Bearer ${token}`
-      }
-      return config
-    },
-    async (error) => {
-      console.log({ msg: "Axios Interceptor Error!", error })
-      throw error
-    }
-  )
-  console.log(user)
   return (
     <>
       <div>
@@ -104,21 +97,34 @@ function App() {
               <Home
                 restaurants={restaurants}
                 handleDeleteRestaurant={handleDeleteRestaurant}
-                user={user}
               />
             }
           />
           <Route
             path="/:id"
-            element={<Restaurant restaurants={restaurants} user={user} />}
+            element={<Restaurant cart={cart} setCart={setCart} user={user} />}
           />
+          {/* <Route
+            path="/order"
+            element={
+              <Order
+                cart={cart}
+                setCart={setCart}
+                user={user}
+                getOrder={getOrder}
+              /> */}
+          {/* }
+          /> */}
           <Route path="/addFood/:id" element={<AddFood />} />
           <Route
             path="/user"
             element={<UserPage user={user} order={order} />}
           />
           <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
-
+          <Route
+            path="/sign-up"
+            element={<SignUp RegisterUser={RegisterUser} />}
+          />
           <Route path="/food/update/:id" element={<UpdateFood />} />
           <Route path="/restaurant/update/:id" element={<UpdateRestaurant />} />
         </Routes>

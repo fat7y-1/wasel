@@ -53,15 +53,6 @@ const Restaurant = ({ user }) => {
     }
   }
 
-  // const handleUpdateFood =
-  // handleUpdateFood = async (foodId) => {
-  //   try {
-  //     await axios.update(`http://localhost:3000/food/${foodId}`)
-  //   } catch (error) {
-
-  //   }
-  // }
-
   if (!user) {
     return <div>You must sign in or sign up if you dont have account</div>
   }
@@ -73,29 +64,17 @@ const Restaurant = ({ user }) => {
         ) : (
           <></>
         )}
-        {foods.map((food) => (
-          <div>
-            <h1>{food.name}</h1>
-            <img src={food.image} alt={food.name} />
-            <p>{food.description}</p>
-            <p>{food.price}</p>
-            <Link to={`/food/update/${food._id}`}>Update</Link>
-          </div>
-
-          //   <div>
-          // <Link to={`/updateFood/${id}`}>UPDATE Food</Link>
-          // {foods.map((food) => (
-          //   <div>
-          //     <h1>{food.name}</h1>
-          //     <img src={food.image} alt={food.name} />
-          //     <p>{food.description}</p>
-          //     <p>{food.price}</p>
-          //   </div>
-        ))}
+        {Array.isArray(foods) &&
+          foods.map((food) => (
+            <div key={food._id}>
+              <h1>{food.name}</h1>
+              <img src={food.image} alt={food.name} />
+              <p>{food.description}</p>
+              <p>{food.price}</p>
+              <Link to={`/food/update/${food._id}`}>Update</Link>
+            </div>
+          ))}
       </div>
-      {/* <button onClick={() => handleUpdateFood(food._id, { name: "Updated Name", price: [] })}>
-  Save Changes
-</button> */}
     </>
   )
 }

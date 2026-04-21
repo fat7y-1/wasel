@@ -15,15 +15,35 @@ const SignIn = ({ setUser }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const userData = await axios.post(
-      "http://localhost:3000/auth/sign-in",
-      formValues
-    )
-    // console.log(userData.data.user)
-    setFormValues(initialState)
-    setUser(userData.data.user)
-    localStorage.setItem("token", userData.data.token)
-    navigate("/")
+    try {
+      const userData = await axios.post(
+        "http://localhost:3000/auth/sign-in",
+        formValues
+      )
+      console.log("Server response:", userData.data)
+
+      // setFormValues(initialState)
+      //     setUser(userData.data.user)
+      //     localStorage.setItem("token", userData.data.token)
+      //     navigate("/")
+      //   }
+
+      if (userData.data && userData.data.user && userData.data.token) {
+        setUser(userData.data.user)
+        localStorage.setItem("token", userData.data.token)
+        setFormValues(initialState)
+        navigate("/")
+      } else {
+        console.error(
+          "Login successful but response format is unexpected:",
+          userData.data
+        )
+        alert("Login successful, but we couldn't find your profile data.")
+      }
+    } catch (error) {
+      console.error("Login failed:", error.response?.data || error.message)
+      alert("Invalid email or password.")
+    }
   }
 
   return (

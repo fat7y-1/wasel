@@ -11,11 +11,11 @@ import Restaurant from "./components/Restaurant"
 import AddFood from "./components/AddFood"
 import { useNavigate } from "react-router-dom"
 import UpdateFood from "./components/UpdateFood"
-
+import AddRestaurant from "./components/AddRestaurant"
 function App() {
   const [restaurants, setRestaurant] = useState([])
   const [user, setUser] = useState(null)
-  const [order, setOrder] = useState([{}])
+  const [order, setOrder] = useState([])
 
   useEffect(() => {
     const getRestaurant = async () => {
@@ -54,30 +54,31 @@ function App() {
   }
 
   useEffect(() => {
-    const getOrder = async () => {
-      try {
-        // console.log(user)
-        console.log(user.id)
-        const response = await axios.get(
-          `http://localhost:3000/order/${user.id}`
-        )
-        console.log(`response.data: ${response.data}`)
-        if (Object.keys(response.data[0]).length == 0)
-          return setOrder(["the array is empty"])
-        setOrder(response.data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getOrder()
-  }, [user])
-
-  useEffect(() => {
     const token = localStorage.getItem("token")
     if (token) {
       checkToken()
     }
   }, [])
+  console.log(user)
+  useEffect(() => {
+    const getOrder = async () => {
+      // Check for BOTH id and _id just to be safe
+      const userId = user?.id || user?._id
+
+      if (userId) {
+        try {
+          const response = await axios.get(
+            `http://localhost:3000/order/${userId}`
+          )
+          console.log(response)
+          setOrder(response.data)
+        } catch (error) {
+          console.error("Order fetch error:", error)
+        }
+      }
+    }
+    getOrder()
+  }, [user]) // Runs whenever user state is updated (Login or Session check)
 
   axios.interceptors.request.use(
     async (config) => {
@@ -94,6 +95,7 @@ function App() {
       throw error
     }
   )
+  console.log(order)
   console.log(user)
   return (
     <>
@@ -113,6 +115,15 @@ function App() {
           <Route
             path="/:id"
             element={<Restaurant restaurants={restaurants} user={user} />}
+          />
+          <Route
+            path="/addRestaurant"
+            element={
+              <AddRestaurant
+                restaurants={restaurants}
+                setRestaurant={setRestaurant}
+              />
+            }
           />
           <Route path="/addFood/:id" element={<AddFood />} />
           <Route

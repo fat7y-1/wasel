@@ -1,13 +1,23 @@
 const UserPage = ({ user, order }) => {
+  // 1. Guard clause: If user isn't logged in yet
   if (!user) {
-    return <div>loading.........</div>
+    return <h1>Please Sign In to view your orders.</h1>
   }
-  console.log(user)
-  console.log(order)
+
+  // 2. Guard clause: If orders are still fetching
+  if (!order || order.length === 0) {
+    return (
+      <>
+        <h1>Welcome, {user.username}</h1>
+        <p>You haven't placed any orders yet.</p>
+      </>
+    )
+  }
 
   return (
     <>
       <h1>Your list of orders {user.username}</h1>
+      {/* <h1>{order.totalPrice}</h1> */}
       {order.map((ord) => (
         <>
           <h3>your Order is:</h3>
@@ -19,21 +29,10 @@ const UserPage = ({ user, order }) => {
             ))}
           </ul>
           <h4>Total Price: {ord.totalPrice}</h4>
-          <h4>Your driver is: {ord.driver.driverName}</h4>
-          <h4>contact your driver: {ord.driver.phoneNumber}</h4>
-          <br />
         </>
       ))}
-      {/* {order.map((details) => (
-        <div>
-
-
-
-          <h4>Your driver is: {details.driver.driverName}</h4>
-          <h4>contact your driver: {details.driver.phoneNumber}.phoneNumber</h4>
-        </div>
-      ))} */}
     </>
   )
 }
+
 export default UserPage

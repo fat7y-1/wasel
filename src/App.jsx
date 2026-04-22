@@ -57,15 +57,36 @@ function App() {
   }
 
   const checkToken = async () => {
-    const token = localStorage.getItem("token")
-
-    if (token) {
-      // console.log("USER: ", JSON.parse(atob(token.split(".")[1])))
-      setUser(JSON.parse(atob(token.split(".")[1])))
+    try {
+      const userData = await axios.get("http://localhost:3000/auth/session")
+      setUser(userData.data)
+    } catch (error) {
+      console.log(error)
     }
   }
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (token) {
+      checkToken()
+    }
+  }, [])
 
   useEffect(() => {
+    const getOrder = async () => {
+      if (!user) return
+      try {
+        // console.log(user)
+        console.log(user.id)
+        const response = await axios.get(
+          `http://localhost:3000/order/${user.id}`
+        )
+        console.log(`response.data: ${response.data}`)
+        if (Object.keys(response.data[0]).length == 0) return setOrder([""])
+        setOrder(response.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
     getOrder()
   }, [user])
 
@@ -83,43 +104,6 @@ function App() {
       throw error
     }
   }
-
-  const handleLogOut = () => {
-    setUser(null)
-    localStorage.clear()
-  }
-
-  useEffect(() => {
-    const token = localStorage.getItem("token")
-    if (token) {
-      checkToken()
-    }
-  }, [])
-    const getOrder = async () => {
-      if (!user) return
-      try {
-        // console.log(user)
-        console.log(user.id)
-        const response = await axios.get(
-          `http://localhost:3000/order/${user.id}`
-        )
-        console.log(`response.data: ${response.data}`)
-        if (Object.keys(response.data[0]).length == 0)
-          return setOrder([""])
-        setOrder(response.data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getOrder()
-  }, [user])
-
-  useEffect(() => {
-    const token = localStorage.getItem("token")
-    if (token) {
-      checkToken()
-    }
-  }, [])
 
   axios.interceptors.request.use(
     async (config) => {

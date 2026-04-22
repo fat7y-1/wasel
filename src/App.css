@@ -43,6 +43,7 @@ p {
   /* margin: 0 auto; */
   font-size: 25px;
   gap: 15px;
+  width: 10px;
 }
 
 .restaurant h3 {

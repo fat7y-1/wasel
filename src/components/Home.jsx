@@ -6,9 +6,14 @@ const Home = ({ restaurants, handleDeleteRestaurant, user }) => {
       <div>
         <h1 className="wasel">Wasel </h1>
         {user.admin ? (
-          <Link to={`/addRestaurant`} className="nav-link">
-            add New Restaurant
-          </Link>
+          <>
+            <Link to={`/addRestaurant`} className="nav-link">
+              add New Restaurant
+            </Link>
+            <Link to={`/driver`}>
+              <h3>Add New Driver Details</h3>
+            </Link>
+          </>
         ) : (
           <></>
         )}

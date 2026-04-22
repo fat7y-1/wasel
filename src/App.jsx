@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom"
 import Order from "./components/Order"
 import AddRestaurant from "./components/AddRestaurant"
 import UpdateFood from "./components/UpdateFood"
+import AddDriver from "./components/AddDriver"
+
 function App() {
   const [restaurants, setRestaurant] = useState([])
   const [user, setUser] = useState(null)
@@ -141,6 +143,7 @@ function App() {
               />
             }
           />
+          <Route path="/driver" element={<AddDriver />} />
         </Routes>
       </div>
     </>

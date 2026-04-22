@@ -45,7 +45,9 @@ const Restaurant = ({ cart, setCart, user }) => {
   }
 
   if (!user) {
-    return <div>You must sign in or sign up if you dont have account</div>
+    return (
+      <h1 id="fff">You must sign in or sign up if you dont have account</h1>
+    )
   }
   return (
     <div className="menu-page">

@@ -20,7 +20,7 @@
 }
 
 body {
-  background-color: gray;
+  background-color: black;
 }
 
 h1,
@@ -910,6 +910,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .update-card {
   border-top: 5px solid #f39c12;
 }
-.filterIcon {
-  width: 30px;
+
+#fff {
+  color: red;
 }

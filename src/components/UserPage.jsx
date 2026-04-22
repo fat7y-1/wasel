@@ -2,7 +2,7 @@ const UserPage = ({ user, orders }) => {
   if (!user) return <h1>Please Sign In</h1>
   if (!orders) return <h1>Loading your orders...</h1>
   if (orders.length == 0) {
-    return <div>you don't have any order</div>
+    return <h2>you don't have any order</h2>
   }
   return (
     <>
@@ -12,7 +12,7 @@ const UserPage = ({ user, orders }) => {
           <ul>
             {ord.food.map((item, index) => (
               <li key={index}>
-                {item.foodItem.name} x{item.count}
+                {item.foodItem?.name} x{item.count}
               </li>
             ))}
           </ul>

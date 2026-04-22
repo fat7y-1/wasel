@@ -31,6 +31,7 @@ const Home = ({ restaurants, handleDeleteRestaurant, user }) => {
       <div className="linkAdmin">
         <h1 className="wasel">Wasel </h1>
         <img
+          className="filterIcon"
           src="https://cdn-icons-png.flaticon.com/128/2676/2676824.png"
           alt="filter"
           onClick={() => {
@@ -40,7 +41,7 @@ const Home = ({ restaurants, handleDeleteRestaurant, user }) => {
         {filter ? (
           <nav>
             <h1>filter: </h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="filterForm">
               <label>
                 <input
                   type="radio"
@@ -143,7 +144,9 @@ const Home = ({ restaurants, handleDeleteRestaurant, user }) => {
                 />
                 Sandwiches
               </label>
-              <button type="submit">Filter</button>
+              <button type="submit" className="filterIcon">
+                Filter
+              </button>
             </form>
             <br />
           </nav>
@@ -180,8 +183,10 @@ const Home = ({ restaurants, handleDeleteRestaurant, user }) => {
                         </div>
                       </Link>
                       <p>
-                        Location:
-                        <a href={restaurant.location}>{restaurant.location}</a>
+                        📍Location:
+                        <a className="linkAddress" href={restaurant.location}>
+                          Click here
+                        </a>
                       </p>
 
                       <p>Phone Number: {restaurant.phoneNumber}</p>
@@ -210,22 +215,24 @@ const Home = ({ restaurants, handleDeleteRestaurant, user }) => {
                         </div>
                       </Link>
                       <p>
-                        Location:
-                        <a href={restaurant.location}>{restaurant.location}</a>
+                        📍Location:
+                        <a className="linkAddress" href={restaurant.location}>
+                          Click here
+                        </a>
                       </p>
-
                       <p>Phone Number: {restaurant.phoneNumber}</p>
+                      {/*     admin part     */}
+                      {user.admin ? (
+                        <button
+                          className="buttonFun"
+                          onClick={() => handleDeleteRestaurant(restaurant._id)}
+                        >
+                          Delete
+                        </button>
+                      ) : (
+                        <></>
+                      )}{" "}
                     </div>
-                    {/*     admin part     */}
-                    {user.admin ? (
-                      <button
-                        onClick={() => handleDeleteRestaurant(restaurant._id)}
-                      >
-                        Delete
-                      </button>
-                    ) : (
-                      <></>
-                    )}{" "}
                     {/* end of user.admin */}
                   </>
                 )) /*end od .map to list all restaurants */

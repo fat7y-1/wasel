@@ -5,7 +5,7 @@ const Home = ({ restaurants, handleDeleteRestaurant, user }) => {
     return (
       <div>
         <h1>Wasel </h1>
-
+        <Link to={`/addRestaurant`}>add New Restaurant</Link>
         <div>
           {restaurants.map((restaurant) => (
             <>
@@ -49,8 +49,7 @@ const Home = ({ restaurants, handleDeleteRestaurant, user }) => {
           ))}
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
-
 export default Home

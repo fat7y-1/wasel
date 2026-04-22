@@ -5,18 +5,14 @@ import { useParams, useNavigate } from "react-router-dom"
 const UpdateFood = () => {
   const { id } = useParams()
   const navigate = useNavigate()
-  const [foodForm, setFoodForm] = useState({
-    name: "",
-    price: 0,
-    description: "",
-    image: "",
-    restaurant: "",
-  })
+  const [foodForm, setFoodForm] = useState(null)
 
   useEffect(() => {
     const getFood = async () => {
       try {
-        let response = await axios.get(`http://localhost:3000/food/${id}`)
+        let response = await axios.get(
+          `http://localhost:3000/food/oneFood/${id}`
+        )
         setFoodForm(response.data)
       } catch (error) {
         console.log(error)
@@ -24,7 +20,6 @@ const UpdateFood = () => {
     }
     getFood()
   }, [id])
-
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
@@ -38,7 +33,10 @@ const UpdateFood = () => {
   const handleChange = (event) => {
     setFoodForm({ ...foodForm, [event.target.name]: event.target.value })
   }
-
+  if (!foodForm) {
+    return <div>loading....</div>
+  }
+  // console.log(foodForm)
   return (
     <>
       <h1>Update Food</h1>

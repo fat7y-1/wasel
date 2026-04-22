@@ -25,7 +25,7 @@ const Order = ({ cart, user, setCart, getOrder }) => {
     }
     try {
       await axios.post(`http://localhost:3000/order/${user.id}`, orderData)
-      await getOrder()
+      await getOrder(user.id)
       setCart([])
       navigate("/user")
     } catch (error) {

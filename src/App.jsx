@@ -11,25 +11,20 @@ import Restaurant from "./components/Restaurant"
 import AddFood from "./components/AddFood"
 import { useNavigate } from "react-router-dom"
 import Order from "./components/Order"
+import AddRestaurant from "./components/AddRestaurant"
 import UpdateFood from "./components/UpdateFood"
-import UpdateRestaurant from "./components/UpdateRestaurant"
-
 function App() {
   const [restaurants, setRestaurant] = useState([])
   const [user, setUser] = useState(null)
-  const [order, setOrder] = useState([])
+  const [orders, setOrder] = useState([])
   const [cart, setCart] = useState([])
 
-  const getOrder = async () => {
-    if (user.id) {
-      try {
-        const response = await axios.get(
-          `http://localhost:3000/order/${user.id}`
-        )
-        setOrder(response.data)
-      } catch (error) {
-        console.log(error)
-      }
+  const getOrder = async (id) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/order/${id}`)
+      setOrder(response.data)
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -38,26 +33,20 @@ function App() {
       try {
         const response = await axios.get(`http://localhost:3000/restaurant`)
         setRestaurant(response.data)
-        // console.log(response.data)
       } catch (error) {
         console.log(error)
       }
     }
-    const checkToken = async () => {
-      const token = localStorage.getItem("token")
-
-      if (token) {
-        try {
-          setUser(JSON.parse(atob(token.split(".")[1])))
-        } catch (error) {
-          localStorage.clear()
-        }
-        // console.log("USER: ", JSON.parse(atob(token.split(".")[1])))
-      }
-    }
     getRestaurant()
-    checkToken()
   }, [])
+  const checkToken = async () => {
+    try {
+      const userData = await axios.get("http://localhost:3000/auth/session")
+      setUser(userData.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const handleDeleteRestaurant = async (restId) => {
     try {
@@ -68,9 +57,13 @@ function App() {
       console.log(error)
     }
   }
-
   useEffect(() => {
-    getOrder()
+    const userId = user?.id
+
+    if (userId) {
+      getOrder(userId)
+    }
+    console.log(orders)
   }, [user])
 
   const handleLogOut = () => {
@@ -78,21 +71,29 @@ function App() {
     // console.log(user)
     localStorage.clear()
   }
-  const RegisterUser = async (data) => {
-    try {
-      const res = await axios.post("http://localhost:3000/auth/sign-up", data)
-      return res.data
-    } catch (error) {
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (token) {
+      checkToken()
+    }
+  }, [])
+  axios.interceptors.request.use(
+    async (config) => {
+      const token = localStorage.getItem("token")
+
+      if (token) {
+        config.headers["authorization"] = `Bearer ${token}`
+      }
+
+      return config
+    },
+    async (error) => {
+      console.log({ msg: "Axios Interceptor Error!", error })
       throw error
     }
-  }
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token")
-  //   if (token) {
-  //     checkToken()
-  //   }
-  // }, [])
+  )
+  console.log(orders)
   return (
     <>
       <div>
@@ -104,6 +105,7 @@ function App() {
               <Home
                 restaurants={restaurants}
                 handleDeleteRestaurant={handleDeleteRestaurant}
+                user={user}
               />
             }
           />
@@ -125,16 +127,20 @@ function App() {
           <Route path="/addFood/:id" element={<AddFood />} />
           <Route
             path="/user"
-            element={<UserPage user={user} order={order} />}
+            element={<UserPage user={user} orders={orders} />}
           />
           <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
-          <Route
-            path="/sign-up"
-            element={<SignUp RegisterUser={RegisterUser} />}
-          />
-
+          <Route path="/sign-up" element={<SignUp />} />
           <Route path="/food/update/:id" element={<UpdateFood />} />
-          <Route path="/restaurant/update/:id" element={<UpdateRestaurant />} />
+          <Route
+            path="/addRestaurant"
+            element={
+              <AddRestaurant
+                restaurants={restaurants}
+                setRestaurant={setRestaurant}
+              />
+            }
+          />
         </Routes>
       </div>
     </>

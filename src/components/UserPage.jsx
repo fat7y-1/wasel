@@ -1,28 +1,26 @@
-const UserPage = ({ user, order }) => {
-  if (!user) {
-    return <div>loading.........</div>
+const UserPage = ({ user, orders }) => {
+  if (!user) return <h1>Please Sign In</h1>
+  if (!orders) return <h1>Loading your orders...</h1>
+  if (orders.length == 0) {
+    return <div>you don't have any order</div>
   }
-
-  console.log(user)
-  console.log(order)
-
   return (
     <>
       <h1>Welcome {user.username} to List Orders</h1>
-      {order.length === 0} ? (<h3>You have no order yet</h3>
-      ):(
-      {order.map((ord) => (
+      {orders.map((ord) => (
         <div key={ord._id}>
           <ul>
             {ord.food.map((item, index) => (
-              <li key={index}>{item.foodItem.name}</li>
+              <li key={index}>
+                {item.foodItem.name} x{item.count}
+              </li>
             ))}
           </ul>
-          <p>Total Price: $ {item.totalPrice}</p>
+          <p>Total Price: $ {ord.totalPrice}</p>
         </div>
       ))}
-      )
     </>
   )
 }
+
 export default UserPage

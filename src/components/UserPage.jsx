@@ -17,6 +17,14 @@ const UserPage = ({ user, orders }) => {
             ))}
           </ul>
           <p>Total Price: $ {ord.totalPrice}</p>
+          {ord.driver ? (
+            <>
+              <p>Driver:{ord.driver.driverName}</p>
+              <p>Phone Number:{ord.driver.phoneNumber}</p>
+            </>
+          ) : (
+            <h3>No Driver </h3>
+          )}
         </div>
       ))}
     </>

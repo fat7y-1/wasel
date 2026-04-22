@@ -1,0 +1,59 @@
+.navv {
+  display: flex;
+  font-size: 30px;
+}
+.space {
+  margin: 20px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+}
+
+.nav-link :hover {
+  color: yellow;
+  transition: all 0.3s ease;
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+body {
+  background-color: black;
+}
+
+h1,
+h2,
+h3,
+p {
+  color: white;
+}
+
+.wasel {
+  font-size: 90px;
+  font-style: italic;
+  text-align: center;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  /* margin: 0 auto; */
+  font-size: 25px;
+  gap: 15px;
+  width: 10px;
+}
+
+.restaurant h3 {
+  font-size: 35px;
+}
+
+img {
+  width: 300px;
+}
+.item {
+  display: flex;
+  flex-wrap: wrap;
+}

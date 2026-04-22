@@ -21,10 +21,11 @@ const Order = ({ cart, user, setCart, getOrder }) => {
       totalPrice: totalPrice,
       food: cart,
       user: user.id,
+      delivery: true,
     }
     try {
       await axios.post(`http://localhost:3000/order/${user.id}`, orderData)
-      await getOrder()
+      await getOrder(user.id)
       setCart([])
       navigate("/user")
     } catch (error) {
@@ -40,7 +41,7 @@ const Order = ({ cart, user, setCart, getOrder }) => {
       ) : (
         <>
           {cart.map((item, index) => (
-            <div>
+            <div key={index}>
               <p>
                 {item.name} x {item.count}{" "}
               </p>

@@ -1,44 +1,73 @@
 import { Link } from "react-router-dom"
 
 const Home = ({ restaurants, handleDeleteRestaurant, user }) => {
-  return (
-    <div>
-      <h1>Wasel</h1>
+  if (user) {
+    return (
+      <div>
+        <h1 className="wasel">Wasel </h1>
+        {user.admin ? (
+          <>
+            <Link to={`/addRestaurant`} className="nav-link">
+              add New Restaurant
+            </Link>
+            <Link to={`/driver`}>
+              <h3>Add New Driver Details</h3>
+            </Link>
+          </>
+        ) : (
+          <></>
+        )}
 
-      <div className="restaurant-list">
-        {restaurants.map((restaurant) => (
-          <div
-            key={restaurant._id}
-            className="restaurant-card"
-            style={{ marginBottom: "20px" }}
-          >
-            <Link
-              to={`/${restaurant._id}`}
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <div>
-                <h3>{restaurant.name}</h3>
-                <img
-                  src={restaurant.logo}
-                  alt={restaurant.name}
-                  style={{ width: "200px" }}
-                />
-                <p>Location: {restaurant.location}</p>
+        <div className="container">
+          {restaurants.map((restaurant) => (
+            <>
+              <div className="item">
+                <Link to={`/${restaurant._id}`} className="nav-link">
+                  <div key={restaurant._id} className="restaurant">
+                    <h3>{restaurant.name}</h3>
+                    <img src={restaurant.logo} alt={restaurant.name} />
+                  </div>
+                </Link>
+                <p>
+                  Location:
+                  <a href={restaurant.location}>{restaurant.location}</a>
+                </p>
+
                 <p>Phone Number: {restaurant.phoneNumber}</p>
               </div>
-            </Link>
-
-            {/* Admin-only Delete Control */}
-            {user && user.admin && (
-              <button onClick={() => handleDeleteRestaurant(restaurant._id)}>
-                Delete Restaurant
-              </button>
-            )}
-          </div>
-        ))}
+              {user.admin ? (
+                <button onClick={() => handleDeleteRestaurant(restaurant._id)}>
+                  Delete
+                </button>
+              ) : (
+                <></>
+              )}
+            </>
+          ))}
+        </div>
       </div>
-    </div>
-  )
-}
+    )
+  } else {
+    return (
+      <div>
+        <h1 className="wasel">Wasel </h1>
 
+        <div className="container">
+          {restaurants.map((restaurant) => (
+            <>
+              <Link to={`/${restaurant._id}`} className="nav-link">
+                <div key={restaurant._id}>
+                  <h3>{restaurant.name}</h3>
+                  <img src={restaurant.logo} alt={restaurant.name} />
+                  <p>Location:{restaurant.location} </p>
+                  <p>Phone Number: {restaurant.phoneNumber}</p>
+                </div>
+              </Link>
+            </>
+          ))}
+        </div>
+      </div>
+    )
+  }
+}
 export default Home

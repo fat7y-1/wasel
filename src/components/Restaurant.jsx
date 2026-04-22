@@ -9,6 +9,15 @@ const Restaurant = ({ cart, setCart, user }) => {
   const navigate = useNavigate()
   const [listFood, setListFood] = useState([])
 
+  const handleDeleteFood = async (foodId) => {
+    try {
+      await axios.delete(`http://localhost:3000/food/${foodId}`)
+      setListFood(listFood.filter((food) => food._id !== foodId))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     const getFood = async () => {
       try {
@@ -29,25 +38,21 @@ const Restaurant = ({ cart, setCart, user }) => {
       name: food.name,
     }
     setCart([...cart, newOrderItem])
-    alert(`You Select ${selectQuantity} of ${food.name}`)
+
     alert("added to cart")
   }
-
-  // const handleUpdateFood =
-  // handleUpdateFood = async (foodId) => {
-  //   try {
-  //     await axios.update(`http://localhost:3000/food/${foodId}`)
-  //   } catch (error) {
-
-  //   }
-  // }
 
   if (!user) {
     return <div>You must sign in or sign up if you dont have account</div>
   }
   return (
     <div>
-      <Link to={`/addFood/${id}`}>+ add New food to Menu</Link>
+      {user.admin ? (
+        <Link to={`/addFood/${id}`}>+ add New food to Menu</Link>
+      ) : (
+        <></>
+      )}
+
       <Link to={`/order`}>View Your Cart</Link>
       <div>
         {listFood.map((food) => (
@@ -64,6 +69,12 @@ const Restaurant = ({ cart, setCart, user }) => {
               onChange={(e) => setQuantity(parseInt(e.target.value))}
             />
             <button onClick={() => addCart(food, quantity)}>ADD CART</button>
+            <button onClick={() => handleDeleteFood(food._id)}>Delete</button>
+            {user.admin ? (
+              <Link to={`/food/update/${food._id}`}>Update</Link>
+            ) : (
+              <></>
+            )}
           </div>
         ))}
       </div>

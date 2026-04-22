@@ -10,12 +10,23 @@ import SignUp from "./components/SignUp"
 import Restaurant from "./components/Restaurant"
 import AddFood from "./components/AddFood"
 import { useNavigate } from "react-router-dom"
-import UpdateFood from "./components/UpdateFood"
+import Order from "./components/Order"
 import AddRestaurant from "./components/AddRestaurant"
+import UpdateFood from "./components/UpdateFood"
 function App() {
   const [restaurants, setRestaurant] = useState([])
   const [user, setUser] = useState(null)
-  const [order, setOrder] = useState([])
+  const [orders, setOrder] = useState([])
+  const [cart, setCart] = useState([])
+
+  const getOrder = async (id) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/order/${id}`)
+      setOrder(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
     const getRestaurant = async () => {
@@ -28,6 +39,14 @@ function App() {
     }
     getRestaurant()
   }, [])
+  const checkToken = async () => {
+    try {
+      const userData = await axios.get("http://localhost:3000/auth/session")
+      setUser(userData.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const handleDeleteRestaurant = async (restId) => {
     try {
@@ -38,18 +57,18 @@ function App() {
       console.log(error)
     }
   }
-  //check the token
-  const checkToken = async () => {
-    try {
-      const userData = await axios.get("http://localhost:3000/auth/session")
-      setUser(userData.data)
-    } catch (error) {
-      console.log(error)
+  useEffect(() => {
+    const userId = user?.id
+
+    if (userId) {
+      getOrder(userId)
     }
-  }
+    console.log(orders)
+  }, [user])
 
   const handleLogOut = () => {
     setUser(null)
+    // console.log(user)
     localStorage.clear()
   }
 
@@ -59,8 +78,6 @@ function App() {
       checkToken()
     }
   }, [])
-  console.log(user)
-
   axios.interceptors.request.use(
     async (config) => {
       const token = localStorage.getItem("token")
@@ -76,8 +93,7 @@ function App() {
       throw error
     }
   )
-  console.log(order)
-  console.log(user)
+  console.log(orders)
   return (
     <>
       <div>
@@ -95,8 +111,27 @@ function App() {
           />
           <Route
             path="/:id"
-            element={<Restaurant restaurants={restaurants} user={user} />}
+            element={<Restaurant cart={cart} setCart={setCart} user={user} />}
           />
+          <Route
+            path="/order"
+            element={
+              <Order
+                cart={cart}
+                setCart={setCart}
+                user={user}
+                getOrder={getOrder}
+              />
+            }
+          />
+          <Route path="/addFood/:id" element={<AddFood />} />
+          <Route
+            path="/user"
+            element={<UserPage user={user} orders={orders} />}
+          />
+          <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/food/update/:id" element={<UpdateFood />} />
           <Route
             path="/addRestaurant"
             element={
@@ -106,14 +141,6 @@ function App() {
               />
             }
           />
-          <Route path="/addFood/:id" element={<AddFood />} />
-          <Route
-            path="/user"
-            element={<UserPage user={user} order={order} />}
-          />
-          <Route path="/food/update/:id" element={<UpdateFood />} />
-          <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
-          <Route path="/sign-up" element={<SignUp />} />
         </Routes>
       </div>
     </>

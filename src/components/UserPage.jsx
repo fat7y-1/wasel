@@ -1,35 +1,23 @@
-const UserPage = ({ user, order }) => {
-  // 1. Guard clause: If user isn't logged in yet
-  if (!user) {
-    return <h1>Please Sign In to view your orders.</h1>
+const UserPage = ({ user, orders }) => {
+  if (!user) return <h1>Please Sign In</h1>
+  if (!orders) return <h1>Loading your orders...</h1>
+  if (orders.length == 0) {
+    return <div>you don't have any order</div>
   }
-
-  // 2. Guard clause: If orders are still fetching
-  if (!order || order.length === 0) {
-    return (
-      <>
-        <h1>Welcome, {user.username}</h1>
-        <p>You haven't placed any orders yet.</p>
-      </>
-    )
-  }
-
   return (
     <>
-      <h1>Your list of orders {user.username}</h1>
-      {/* <h1>{order.totalPrice}</h1> */}
-      {order.map((ord) => (
-        <>
-          <h3>your Order is:</h3>
+      <h1>Welcome {user.username} to List Orders</h1>
+      {orders.map((ord) => (
+        <div key={ord._id}>
           <ul>
-            {ord.food.map((item) => (
-              <li>
-                {item.foodItem.name} quantity:{item.count}
+            {ord.food.map((item, index) => (
+              <li key={index}>
+                {item.foodItem.name} x{item.count}
               </li>
             ))}
           </ul>
-          <h4>Total Price: {ord.totalPrice}</h4>
-        </>
+          <p>Total Price: $ {ord.totalPrice}</p>
+        </div>
       ))}
     </>
   )

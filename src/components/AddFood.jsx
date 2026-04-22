@@ -19,7 +19,6 @@ const AddFood = () => {
       try {
         let response = await axios.get(`http://localhost:3000/food/${id}`)
         setFoodForm(response.data)
-        console.log(response.data)
       } catch (error) {
         console.log(error)
       }
@@ -85,11 +84,6 @@ const AddFood = () => {
           value={foodForm.image}
         />
         <button type="submit">AddFood</button>
-        {/* <button
-          onClick={() =>
-            handleUpdateFood(food._id, { name: "Updated Name", price: [] })
-          }
-        ></button> */}
       </form>
     </>
   )

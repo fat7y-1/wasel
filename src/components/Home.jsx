@@ -5,7 +5,7 @@ const Home = ({ restaurants, handleDeleteRestaurant, user }) => {
     return (
       <div>
         <h1>Wasel </h1>
-        <Link to={`/addRestaurant`}> Add Restaurant</Link>
+        <Link to={`/addRestaurant`}>add New Restaurant</Link>
         <div>
           {restaurants.map((restaurant) => (
             <>

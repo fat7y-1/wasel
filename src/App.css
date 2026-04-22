@@ -26,7 +26,8 @@ body {
 h1,
 h2,
 h3,
-p {
+p,
+li {
   color: white;
 }
 
@@ -56,4 +57,24 @@ img {
 .item {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  width: 400px;
+  margin: 30px;
+}
+
+.linkAdmin {
+  font-size: 30px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  color: wheat;
+  text-align: center;
+}
+.linkAddress {
+  text-decoration: none;
+  color: red;
+  font-style: italic;
+}
+.buttonFun {
+  height: 50px;
+  width: 300px;
+  border-radius: 40px;
 }

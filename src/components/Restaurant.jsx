@@ -48,17 +48,22 @@ const Restaurant = ({ cart, setCart, user }) => {
   return (
     <div>
       {user.admin ? (
-        <Link to={`/addFood/${id}`}>+ add New food to Menu</Link>
+        <Link to={`/addFood/${id}`} className="nav-link">
+          + add New food to Menu
+        </Link>
       ) : (
         <></>
       )}
 
-      <Link to={`/order`}>View Your Cart</Link>
+      <Link to={`/order`} className="nav-link">
+        View Your Cart
+      </Link>
       <div>
         {listFood.map((food) => (
           <div key={food._id}>
             <h1>{food.name}</h1>
             <img src={food.image} alt={food.name} />
+            <p>{food.description}</p>
             <p>$ {food.price}</p>
             <label htmlFor="quantity">quantity:</label>
             <input
@@ -69,9 +74,16 @@ const Restaurant = ({ cart, setCart, user }) => {
               onChange={(e) => setQuantity(parseInt(e.target.value))}
             />
             <button onClick={() => addCart(food, quantity)}>ADD CART</button>
-            <button onClick={() => handleDeleteFood(food._id)}>Delete</button>
+
             {user.admin ? (
-              <Link to={`/food/update/${food._id}`}>Update</Link>
+              <>
+                <button onClick={() => handleDeleteFood(food._id)}>
+                  Delete
+                </button>
+                <Link to={`/food/update/${food._id}`} className="nav-link">
+                  Update
+                </Link>
+              </>
             ) : (
               <></>
             )}

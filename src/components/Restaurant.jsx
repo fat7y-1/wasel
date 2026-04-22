@@ -47,7 +47,12 @@ const Restaurant = ({ cart, setCart, user }) => {
   }
   return (
     <div>
-      <Link to={`/addFood/${id}`}>+ add New food to Menu</Link>
+      {user.admin ? (
+        <Link to={`/addFood/${id}`}>+ add New food to Menu</Link>
+      ) : (
+        <></>
+      )}
+
       <Link to={`/order`}>View Your Cart</Link>
       <div>
         {listFood.map((food) => (
@@ -65,7 +70,11 @@ const Restaurant = ({ cart, setCart, user }) => {
             />
             <button onClick={() => addCart(food, quantity)}>ADD CART</button>
             <button onClick={() => handleDeleteFood(food._id)}>Delete</button>
-            <Link to={`/food/update/${food._id}`}>Update</Link>
+            {user.admin ? (
+              <Link to={`/food/update/${food._id}`}>Update</Link>
+            ) : (
+              <></>
+            )}
           </div>
         ))}
       </div>

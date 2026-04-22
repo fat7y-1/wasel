@@ -42,14 +42,15 @@ function App() {
     }
     getRestaurant()
   }, [])
-  const checkToken = async () => {
-    try {
-      const userData = await axios.get("http://localhost:3000/auth/session")
-      setUser(userData.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+
+  // const checkToken = async () => {
+  //   try {
+  //     const userData = await axios.get("http://localhost:3000/auth/session")
+  //     setUser(userData.data)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   const handleDeleteRestaurant = async (restId) => {
     try {
@@ -60,13 +61,39 @@ function App() {
       console.log(error)
     }
   }
-  useEffect(() => {
-    const userId = user?.id
 
-    if (userId) {
-      getOrder(userId)
+  const checkToken = async () => {
+    try {
+      const userData = await axios.get("http://localhost:3000/auth/session")
+      setUser(userData.data)
+    } catch (error) {
+      console.log(error)
     }
-    console.log(orders)
+  }
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (token) {
+      checkToken()
+    }
+  }, [])
+
+  useEffect(() => {
+    const getOrder = async () => {
+      if (!user) return
+      try {
+        // console.log(user)
+        console.log(user.id)
+        const response = await axios.get(
+          `http://localhost:3000/order/${user.id}`
+        )
+        // console.log(`response.data: ${response.data}`)
+        if (Object.keys(response.data[0]).length == 0) return setOrder([""])
+        setOrder(response.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getOrder()
   }, [user])
 
   const handleLogOut = () => {
@@ -75,12 +102,15 @@ function App() {
     localStorage.clear()
   }
 
-  useEffect(() => {
-    const token = localStorage.getItem("token")
-    if (token) {
-      checkToken()
+  const RegisterUser = async (data) => {
+    try {
+      const res = await axios.post("http://localhost:3000/auth/sign-up", data)
+      return res.data
+    } catch (error) {
+      throw error
     }
-  }, [])
+  }
+
   axios.interceptors.request.use(
     async (config) => {
       const token = localStorage.getItem("token")
@@ -96,7 +126,6 @@ function App() {
       throw error
     }
   )
-  console.log(orders)
   return (
     <>
       <div>

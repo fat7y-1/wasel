@@ -20,7 +20,7 @@
 }
 
 body {
-  background-color: black;
+  background-color: gray;
 }
 
 h1,
@@ -913,4 +913,6 @@ input[type="number"]::-webkit-outer-spin-button {
 
 #fff {
   color: red;
+.filterIcon {
+  width: 30px;
 }

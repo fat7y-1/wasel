@@ -41,14 +41,15 @@ function App() {
     }
     getRestaurant()
   }, [])
-  const checkToken = async () => {
-    try {
-      const userData = await axios.get("http://localhost:3000/auth/session")
-      setUser(userData.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+
+  // const checkToken = async () => {
+  //   try {
+  //     const userData = await axios.get("http://localhost:3000/auth/session")
+  //     setUser(userData.data)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   const handleDeleteRestaurant = async (restId) => {
     try {
@@ -84,7 +85,7 @@ function App() {
         const response = await axios.get(
           `http://localhost:3000/order/${user.id}`
         )
-        console.log(`response.data: ${response.data}`)
+        // console.log(`response.data: ${response.data}`)
         if (Object.keys(response.data[0]).length == 0) return setOrder([""])
         setOrder(response.data)
       } catch (error) {
@@ -124,7 +125,6 @@ function App() {
       throw error
     }
   )
-  console.log(orders)
   return (
     <>
       <div>

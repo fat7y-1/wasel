@@ -28,7 +28,7 @@ const Home = ({ restaurants, handleDeleteRestaurant, user }) => {
 
   if (user) {
     return (
-      <div>
+      <div className="linkAdmin">
         <h1 className="wasel">Wasel </h1>
         <img
           src="https://cdn-icons-png.flaticon.com/128/2676/2676824.png"
@@ -236,20 +236,28 @@ const Home = ({ restaurants, handleDeleteRestaurant, user }) => {
   } else {
     return (
       <div>
-        <h1 className="wasel">Wasel </h1>
+        <h1 className="wasel">Wasel</h1>
 
         <div className="container">
           {restaurants.map((restaurant) => (
-            <>
-              <Link to={`/${restaurant._id}`} className="nav-link">
-                <div key={restaurant._id}>
-                  <h3>{restaurant.name}</h3>
-                  <img src={restaurant.logo} alt={restaurant.name} />
-                  <p>Location:{restaurant.location} </p>
-                  <p>Phone Number: {restaurant.phoneNumber}</p>
-                </div>
-              </Link>
-            </>
+            <div className="item" key={restaurant._id}>
+              <div>
+                <Link to={`/${restaurant._id}`} className="nav-link">
+                  <div className="restaurant">
+                    <h3>{restaurant.name}</h3>
+                    <img src={restaurant.logo} alt={restaurant.name} />
+                  </div>
+                </Link>
+
+                <p>
+                  📍Location:
+                  <a className="linkAddress" href={restaurant.location}>
+                    Click here
+                  </a>
+                </p>
+                <p>Phone Number: {restaurant.phoneNumber}</p>
+              </div>
+            </div>
           ))}
         </div>
       </div>

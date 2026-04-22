@@ -27,36 +27,76 @@ const UpdateRestaurant = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Update Restaurant Info</h1>
-      <input
-        name="name"
-        value={restForm.name}
-        onChange={(e) => setRestForm({ ...restForm, name: e.target.value })}
-        placeholder="Name"
-      />
-      <input
-        name="location"
-        value={restForm.location}
-        onChange={(e) => setRestForm({ ...restForm, location: e.target.value })}
-        placeholder="Location"
-      />
-      <input
-        name="phoneNumber"
-        value={restForm.phoneNumber}
-        onChange={(e) =>
-          setRestForm({ ...restForm, phoneNumber: e.target.value })
-        }
-        placeholder="Phone"
-      />
-      <input
-        name="logo"
-        value={restForm.logo}
-        onChange={(e) => setRestForm({ ...restForm, logo: e.target.value })}
-        placeholder="Logo URL"
-      />
-      <button type="submit">Save Changes</button>
-    </form>
+    <div className="admin-container">
+      <div className="form-card update-card">
+        <h1 className="form-title">Update Restaurant Info</h1>
+        <p className="form-subtitle">
+          Modify the details for <strong>{restForm.name}</strong>
+        </p>
+
+        <form className="admin-form" onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label htmlFor="name">Restaurant Name</label>
+            <input
+              id="name"
+              name="name"
+              value={restForm.name}
+              onChange={(e) =>
+                setRestForm({ ...restForm, name: e.target.value })
+              }
+              placeholder="Name"
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="location">Location (URL or Address)</label>
+            <input
+              id="location"
+              name="location"
+              value={restForm.location}
+              onChange={(e) =>
+                setRestForm({ ...restForm, location: e.target.value })
+              }
+              placeholder="Location"
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="phoneNumber">Phone Number</label>
+            <input
+              id="phoneNumber"
+              name="phoneNumber"
+              value={restForm.phoneNumber}
+              onChange={(e) =>
+                setRestForm({ ...restForm, phoneNumber: e.target.value })
+              }
+              placeholder="Phone"
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="logo">Logo URL</label>
+            <input
+              id="logo"
+              name="logo"
+              value={restForm.logo}
+              onChange={(e) =>
+                setRestForm({ ...restForm, logo: e.target.value })
+              }
+              placeholder="Logo URL"
+              required
+            />
+          </div>
+
+          <button className="submit-btn update-btn" type="submit">
+            Save Changes
+          </button>
+        </form>
+      </div>
+    </div>
   )
 }
 export default UpdateRestaurant

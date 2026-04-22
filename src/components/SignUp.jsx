@@ -29,7 +29,7 @@ const SignUp = () => {
   return (
     <div className="col register">
       <h1>Sign Up</h1>
-      <img src="/images/register.png" alt="Register Title Image" />
+
       <form onSubmit={handleSubmit}>
         <div className="input-wrapper">
           <label htmlFor="username">Username</label>

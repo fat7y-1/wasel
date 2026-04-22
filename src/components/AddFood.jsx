@@ -53,39 +53,71 @@ const AddFood = () => {
   }
 
   return (
-    <>
-      <h1>Add new food</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
-        <input
-          type="text"
-          name="name"
-          onChange={handleChange}
-          value={foodForm.name}
-        />
-        <label htmlFor="price">Price</label>
-        <input
-          type="number"
-          name="price"
-          onChange={handleChange}
-          value={foodForm.price}
-        />
-        <label htmlFor="description">Description</label>
-        <textarea
-          name="description"
-          onChange={handleChange}
-          value={foodForm.description}
-        ></textarea>
-        <label htmlFor="image">Image</label>
-        <input
-          type="text"
-          onChange={handleChange}
-          name="image"
-          value={foodForm.image}
-        />
-        <button type="submit">AddFood</button>
-      </form>
-    </>
+    <div className="admin-container">
+      <div className="form-card">
+        <h1 className="form-title">Add New Food</h1>
+        <p className="form-subtitle">Create a new item for the menu</p>
+
+        <form className="admin-form" onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label htmlFor="name">Dish Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="e.g. Spicy Zinger Burger"
+              onChange={handleChange}
+              value={foodForm.name}
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="price">Price ($)</label>
+            <input
+              type="number"
+              id="price"
+              name="price"
+              step="0.01"
+              placeholder="0.00"
+              onChange={handleChange}
+              value={foodForm.price}
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="description">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              placeholder="What's in this dish? (ingredients, spices, etc.)"
+              onChange={handleChange}
+              value={foodForm.description}
+              rows="4"
+              required
+            ></textarea>
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="image">Image URL</label>
+            <input
+              type="text"
+              id="image"
+              name="image"
+              placeholder="https://image-link.com/food.png"
+              onChange={handleChange}
+              value={foodForm.image}
+              required
+            />
+          </div>
+
+          <button className="submit-btn food-btn" type="submit">
+            Add Food Item
+          </button>
+        </form>
+      </div>
+    </div>
   )
 }
 

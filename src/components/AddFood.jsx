@@ -26,16 +26,6 @@ const AddFood = () => {
     getFood()
   }, [])
 
-  // const handleSubmit = async(event) => {
-  //   event.preventDefault()
-  //   try {
-  //     await axios.put(`http://localhost:3000/food/${id}`, foodList`)
-  //       navigate(`/${id}`)
-  //   } catch (error) {
-  //    console.log(error)
-
-  //   }
-  // }
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {

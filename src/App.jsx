@@ -13,6 +13,9 @@ import { useNavigate } from "react-router-dom"
 import Order from "./components/Order"
 import AddRestaurant from "./components/AddRestaurant"
 import UpdateFood from "./components/UpdateFood"
+import AddDriver from "./components/AddDriver"
+import UpdateRestaurant from "./components/UpdateRestaurant"
+
 function App() {
   const [restaurants, setRestaurant] = useState([])
   const [user, setUser] = useState(null)
@@ -132,6 +135,7 @@ function App() {
           <Route path="/sign-in" element={<SignIn setUser={setUser} />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/food/update/:id" element={<UpdateFood />} />
+
           <Route
             path="/addRestaurant"
             element={
@@ -141,6 +145,7 @@ function App() {
               />
             }
           />
+          <Route path="/driver" element={<AddDriver />} />
         </Routes>
       </div>
     </>

@@ -37,7 +37,9 @@ const Restaurant = ({ cart, setCart, user }) => {
       price: food.price,
       name: food.name,
     }
+
     setCart([...cart, newOrderItem])
+    setQuantity(1)
 
     alert("added to cart")
   }
@@ -46,26 +48,65 @@ const Restaurant = ({ cart, setCart, user }) => {
     return <div>You must sign in or sign up if you dont have account</div>
   }
   return (
-    <div>
-      <Link to={`/addFood/${id}`}>+ add New food to Menu</Link>
-      <Link to={`/order`}>View Your Cart</Link>
-      <div>
+    <div className="menu-page">
+      <div className="menu-header">
+        <h1>Menu</h1>
+        <div className="header-links">
+          {user.admin && (
+            <Link to={`/addFood/${id}`} className="admin-btn">
+              + Add Food
+            </Link>
+          )}
+          <Link to={`/order`} className="cart-link">
+            🛒 View Cart ({cart.length})
+          </Link>
+        </div>
+      </div>
+
+      <div className="menu-grid">
         {listFood.map((food) => (
-          <div key={food._id}>
-            <h1>{food.name}</h1>
-            <img src={food.image} alt={food.name} />
-            <p>$ {food.price}</p>
-            <label htmlFor="quantity">quantity:</label>
-            <input
-              type="number"
-              id={food._id}
-              min="1"
-              defaultValue={1}
-              onChange={(e) => setQuantity(parseInt(e.target.value))}
-            />
-            <button onClick={() => addCart(food, quantity)}>ADD CART</button>
-            <button onClick={() => handleDeleteFood(food._id)}>Delete</button>
-            <Link to={`/food/update/${food._id}`}>Update</Link>
+          <div key={food._id} className="food-card">
+            <div className="food-image-wrapper">
+              <img src={food.image} alt={food.name} />
+              <span className="price-tag">${food.price}</span>
+            </div>
+
+            <div className="food-info">
+              <h3 className="desc">{food.name}</h3>
+              <p className="desc">{food.description}</p>
+              <div className="order-controls">
+                <div className="qty-input">
+                  <label>Qty:</label>
+                  <input
+                    type="number"
+                    id={food._id}
+                    min={1}
+                    defaultValue={1}
+                    onChange={(e) => setQuantity(parseInt(e.target.value))}
+                  />
+                </div>
+                <button
+                  className="add-cart-btn"
+                  onClick={() => addCart(food, quantity)}
+                >
+                  ADD TO CART
+                </button>
+              </div>
+
+              {user.admin && (
+                <div className="admin-controls">
+                  <Link to={`/food/update/${food._id}`} className="update-link">
+                    Edit
+                  </Link>
+                  <button
+                    className="delete-food-btn"
+                    onClick={() => handleDeleteFood(food._id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         ))}
       </div>

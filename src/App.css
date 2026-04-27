@@ -1,0 +1,916 @@
+.navv {
+  display: flex;
+  font-size: 30px;
+}
+.space {
+  margin: 20px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+}
+
+.nav-link:hover {
+  color: yellow;
+  transition: all 0.3s ease;
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+body {
+  background-color: black;
+}
+
+h1,
+h2,
+h3,
+p,
+li {
+  color: white;
+}
+
+/* General Page Styling */
+.linkAdmin {
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+  min-height: 100vh;
+}
+
+.wasel {
+  text-align: center;
+  color: #e63946;
+  font-size: 3rem;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Admin Navigation Links */
+.nav-link {
+  text-decoration: none;
+  color: #1d3557;
+  transition: color 0.3s ease;
+}
+
+.nav-link h3:hover {
+  color: #e63946;
+}
+
+/* Main Grid Container */
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Individual Restaurant Cards */
+.item {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease;
+}
+
+.item:hover {
+  transform: translateY(-5px);
+}
+
+.restaurant h3 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.restaurant img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+/* Typography and Links */
+.linkAddress {
+  color: #457b9d;
+  font-weight: bold;
+  margin-left: 5px;
+  text-decoration: underline;
+}
+
+.linkAddress:hover {
+  color: #1d3557;
+}
+
+p {
+  color: #555;
+  margin: 8px 0;
+  font-size: 0.95rem;
+}
+
+/* Buttons */
+.buttonFun {
+  background-color: #e63946;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.buttonFun:hover {
+  background-color: #c1121f;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  .wasel {
+    font-size: 2rem;
+  }
+}
+
+/* Page Setup */
+.menu-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 20px;
+}
+
+.menu-header h1 {
+  font-size: 2.5rem;
+  color: white;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-style: italic;
+}
+
+/* Links & Header Buttons */
+.header-links a {
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.cart-link {
+  background: #6c5ce7;
+  color: white;
+}
+.admin-btn {
+  background: #00b894;
+  color: white;
+}
+
+/* Grid Layout */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* Food Card */
+.food-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.food-card:hover {
+  transform: translateY(-5px);
+}
+
+.food-image-wrapper {
+  position: relative;
+  height: 180px;
+}
+
+.food-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.price-tag {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  color: #2d3436;
+}
+
+/* Card Content */
+.food-info {
+  padding: 20px;
+}
+
+.food-info h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.25rem;
+}
+
+.order-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.qty-input {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+}
+
+.qty-input input {
+  width: 50px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.add-cart-btn {
+  flex-grow: 1;
+  background: #2d3436;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.add-cart-btn:hover {
+  background: #000;
+}
+
+/* Admin UI */
+.admin-controls {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.update-link {
+  text-decoration: none;
+  color: #0984e3;
+  font-weight: 600;
+}
+
+.delete-food-btn {
+  background: none;
+  border: none;
+  color: #ff7675;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.desc {
+  color: black;
+}
+
+/* Container for the whole Sign In section */
+.signin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 20px;
+}
+
+/* Image styling */
+.signin img {
+  max-width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* Form layout */
+.signin form {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Input wrappers for spacing */
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.input-wrapper label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #1d3557;
+  font-size: 0.9rem;
+}
+
+/* Input field styling */
+.input-wrapper input {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  outline: none;
+}
+
+.input-wrapper input:focus {
+  border-color: #457b9d;
+  box-shadow: 0 0 0 3px rgba(69, 123, 157, 0.2);
+}
+
+/* Button styling */
+.signin button {
+  background-color: #e63946;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    opacity 0.3s ease;
+  margin-top: 10px;
+}
+
+.signin button:hover:not(:disabled) {
+  background-color: #c1121f;
+}
+
+/* Disabled button state */
+.signin button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Helper class if you used "col" for layouts elsewhere */
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Container for the Register section */
+.register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh; /* Slightly taller to accommodate more fields */
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+}
+
+/* Heading style */
+.register h1 {
+  color: #1d3557;
+  margin-bottom: 10px;
+  font-size: 2.2rem;
+}
+
+/* Image styling */
+.register img {
+  max-width: 120px;
+  height: auto;
+  margin-bottom: 25px;
+}
+
+/* Form container */
+.register form {
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 15px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Input wrappers */
+.register .input-wrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.register .input-wrapper label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #1d3557;
+  font-size: 0.9rem;
+}
+
+/* Input field styling */
+.register .input-wrapper input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.register .input-wrapper input:focus {
+  border-color: #e63946; /* Matching the Wasel theme color */
+  box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.1);
+}
+
+/* Register Button */
+.register button {
+  background-color: #1d3557; /* Using the navy color for variety */
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.register button:hover:not(:disabled) {
+  background-color: #457b9d;
+}
+
+/* Disabled state for button */
+.register button:disabled {
+  background-color: #cbd5e0;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* Responsive adjustment */
+@media (max-width: 480px) {
+  .register form {
+    padding: 20px;
+  }
+}
+
+/* Container for the User Profile/Orders Page */
+.user-orders-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: "Inter", sans-serif;
+}
+
+.welcome-msg {
+  color: #0984e3;
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+.section-title {
+  color: #457b9d;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+/* Grid of Order Cards */
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.order-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  border-top: 5px solid #e63946; /* The brand red accent */
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.order-id {
+  font-weight: bold;
+  color: #888;
+  font-size: 0.8rem;
+}
+
+.order-total {
+  font-weight: bold;
+  color: #1d3557;
+}
+
+/* Items list inside the card */
+.order-items-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+  flex-grow: 1;
+}
+
+.order-items-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.item-qty {
+  color: #457b9d;
+  font-weight: bold;
+}
+
+/* Driver Status Section */
+.driver-info-section {
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.driver-assigned p {
+  margin: 3px 0;
+  font-size: 0.9rem;
+  color: #1d3557;
+}
+
+.no-driver p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #e63946;
+  font-style: italic;
+  text-align: center;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .orders-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Admin Page Layout */
+.admin-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+  background-color: #f1f4f8;
+  min-height: 90vh;
+}
+
+.form-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 500px;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(29, 53, 87, 0.1);
+}
+
+.form-title {
+  color: #1d3557;
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.form-subtitle {
+  color: #666;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 0.9rem;
+}
+
+/* Input Groups */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  font-weight: 600;
+  color: #1d3557;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.input-group input {
+  padding: 12px 15px;
+  border: 2px solid #e1e8ef;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: #457b9d;
+  background-color: #f8fbff;
+}
+
+/* Form Button */
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #e63946;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition:
+    background 0.3s,
+    transform 0.2s;
+}
+
+.submit-btn:hover {
+  background-color: #c1121f;
+  transform: translateY(-2px);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Styling for Textarea specifically for Food Description */
+.admin-form textarea {
+  padding: 12px 15px;
+  border: 2px solid #e1e8ef;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  outline: none;
+  resize: vertical; /* Allows user to adjust height but not width */
+}
+
+.admin-form textarea:focus {
+  border-color: #457b9d;
+  background-color: #f8fbff;
+}
+
+/* Specific color for Food Submit button to distinguish it */
+.food-btn {
+  background-color: #2a9d8f; /* Using a fresh teal/green for food items */
+}
+
+.food-btn:hover {
+  background-color: #21867a;
+}
+
+/* Ensure price input looks clean */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1; /* Keep arrows visible for easy price adjustment */
+}
+
+/* Driver Page Specific Styles */
+
+/* Centered icon at the top of the card */
+.icon-header {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.driver-icon {
+  background: #f1f4f8;
+  padding: 15px;
+  border-radius: 50%;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+}
+
+/* Specific color for Driver button (Navy/Blue) */
+.driver-btn {
+  background-color: #1d3557;
+}
+
+.driver-btn:hover {
+  background-color: #457b9d;
+}
+
+/* Ensure number inputs don't have weird default styles */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Focus state for driver form */
+.admin-form input[name="driverName"]:focus,
+.admin-form input[name="phoneNumber"]:focus {
+  border-color: #1d3557;
+  box-shadow: 0 0 0 3px rgba(29, 53, 87, 0.1);
+}
+/* Container for the Order/Cart page */
+.order-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+/* Page Headers */
+.order-container h1 {
+  color: #1d3557;
+  border-bottom: 2px solid #f1f1f1;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+}
+
+/* Individual Item Rows */
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px dashed #ddd; /* Receipt style line */
+}
+
+.order-item p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.item-details {
+  font-weight: 600;
+  color: #1d3557;
+}
+
+.item-price {
+  color: #e63946;
+  font-weight: bold;
+}
+
+/* Total Price Section */
+.total-section {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-section h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #1d3557;
+}
+
+/* Confirm Order Button */
+.confirm-btn {
+  width: 100%;
+  background-color: #457b9d;
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 25px;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.confirm-btn:hover {
+  background-color: #1d3557;
+  transform: translateY(-2px);
+}
+
+.confirm-btn:active {
+  transform: translateY(0);
+}
+
+/* Empty Cart Style */
+.empty-cart-msg {
+  color: #888;
+  font-style: italic;
+  margin-top: 50px;
+}
+
+/* Update Card Specifics */
+.update-card {
+  border-left: 8px solid #f39c12; /* Orange accent for editing */
+}
+
+/* Update Button Styling */
+.update-btn {
+  background-color: #f39c12; /* Amber/Orange for "Update" */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.update-btn:hover {
+  background-color: #e67e22;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(243, 156, 18, 0.3);
+}
+
+/* Visual cue for textareas in update mode */
+.admin-form textarea:focus {
+  border-color: #f39c12;
+}
+
+/* Subtle styling for the strong tag in subtitle */
+.form-subtitle strong {
+  color: #1d3557;
+  font-weight: 700;
+}
+
+/* Update Restaurant specific focus theme */
+.update-card .input-group input:focus {
+  border-color: #f39c12;
+  box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1);
+}
+
+/* Ensure the update button matches the edit theme */
+.update-btn {
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.update-btn:hover {
+  background-color: #d35400;
+  transform: translateY(-1px);
+}
+
+/* Reuse the update-card border accent from the food update */
+.update-card {
+  border-top: 5px solid #f39c12;
+}
+
+#fff {
+  color: red;
+}

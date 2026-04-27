@@ -38,39 +38,69 @@ const UpdateFood = () => {
   }
   // console.log(foodForm)
   return (
-    <>
-      <h1>Update Food</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Name</label>
-        <input
-          type="text"
-          name="name"
-          onChange={handleChange}
-          value={foodForm.name}
-        />
-        <label>Price</label>
-        <input
-          type="number"
-          name="price"
-          onChange={handleChange}
-          value={foodForm.price}
-        />
-        <label>Description</label>
-        <textarea
-          name="description"
-          onChange={handleChange}
-          value={foodForm.description}
-        ></textarea>
-        <label>Image URL</label>
-        <input
-          type="text"
-          name="image"
-          onChange={handleChange}
-          value={foodForm.image}
-        />
-        <button type="submit">UPDATE</button>
-      </form>
-    </>
+    <div className="admin-container">
+      <div className="form-card update-card">
+        <h1 className="form-title">Update Food Item</h1>
+        <p className="form-subtitle">
+          Modify the details for <strong>{foodForm.name}</strong>
+        </p>
+
+        <form className="admin-form" onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label htmlFor="name">Dish Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              onChange={handleChange}
+              value={foodForm.name}
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="price">Price ($)</label>
+            <input
+              type="number"
+              id="price"
+              name="price"
+              step="0.01"
+              onChange={handleChange}
+              value={foodForm.price}
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="description">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              onChange={handleChange}
+              value={foodForm.description}
+              rows="4"
+              required
+            ></textarea>
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="image">Image URL</label>
+            <input
+              type="text"
+              id="image"
+              name="image"
+              onChange={handleChange}
+              value={foodForm.image}
+              required
+            />
+          </div>
+
+          <button className="submit-btn update-btn" type="submit">
+            Save Changes
+          </button>
+        </form>
+      </div>
+    </div>
   )
 }
 export default UpdateFood

@@ -1,16 +1,71 @@
-# React + Vite
+# Project 3 : WASEL
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Date: 16/4/2026
 
-Currently, two official plugins are available:
+### Created By: Fathy Soliman - Yusuf AlSheikh - Masooma Ebrahim - Zainab Salman
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+[GitHub](https://github.com/fat7y-1)
 
-## React Compiler
+***
+[Github](https://github.com/YUSUF-ALSHIEKH)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+***
+[GitHub](https://github.com/masooma99)
 
-## Expanding the ESLint configuration
+***
+[Github](https://github.com/ZELDA3)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+***
+
+
+### ***Description***
+#### WASEL is a delivery application for ordering food, there are three types of users: an admin, who manages the listings of partner restaurants; an owner: who creates and edits restaurant profiles; and a client: who orders food and based on their selections, clients can update, delete, or track their order status, as well as view their order history.
+***
+
+### ***Technologies Used***
+* Node
+* Express
+* React
+* MongoDB
+* Mongoose
+* Vite
+* JWT
+* Axios
+***
+
+### ***Getting Started***
+
+#####
+
+##### A Trello board was used to keep track of development progress and can be viewed [https://trello.com/b/tWR76XAc/wasel]
+***
+THE HOME PAGE
+![Image](./images/Screenshot%202026-04-27%20180805.png)
+
+### THE ADD RESTAURANT PAGE
+![Image](./images/Screenshot%202026-04-27%20180820.png)
+
+### THE ADD DRIVER PAGE
+![Image](./images/Screenshot%202026-04-27%20180843.png)
+
+### THE MENU PAGE
+![Image](./imageS/Screenshot%202026-04-27%20180859.png)
+
+### THE CART PAGE
+
+![Image](./images/Screenshot%202026-04-27%20180921.png)
+
+### THE ORDER PAGE
+![Image](./images/Screenshot%202026-04-27%20180934.png)
+
+### ***Future Updates***
+
+  -Adding owner for each restaurant
+***
+
+### ***Credits***
+
+##### Markdown Guide: [ia.net](https://ia.net/writer/support/general/markdown-guide)
+
+##### Markdown Cheatsheet: [GitHub](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf)
+***

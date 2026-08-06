@@ -1,6 +1,13 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import {
+  FormShell,
+  FormField,
+  SubmitButton,
+  inputClass,
+} from "./ui/FormShell"
+
 const AddRestaurant = ({ restaurants, setRestaurant }) => {
   const navigate = useNavigate()
   const init = {
@@ -37,85 +44,74 @@ const AddRestaurant = ({ restaurants, setRestaurant }) => {
     }
   }
   return (
-    <div className="admin-container">
-      <div className="form-card">
-        <h1 className="form-title">Add New Restaurant</h1>
-        <p className="form-subtitle">
-          Enter the details to register a new partner
-        </p>
+    <FormShell
+      title="Add New Restaurant"
+      subtitle="Enter the details to register a new partner"
+    >
+      <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
+        <FormField label="Restaurant Name">
+          <input
+            type="text"
+            name="name"
+            placeholder="e.g. Burger Palace"
+            onChange={handleChange}
+            value={restaurantForm.name}
+            required
+            className={inputClass}
+          />
+        </FormField>
 
-        <form className="admin-form" onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label htmlFor="name">Restaurant Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="e.g. Burger Palace"
-              onChange={handleChange}
-              value={restaurantForm.name}
-              required
-            />
-          </div>
+        <FormField label="Location (URL or Address)">
+          <input
+            type="text"
+            name="location"
+            placeholder="Google Maps link"
+            onChange={handleChange}
+            value={restaurantForm.location}
+            required
+            className={inputClass}
+          />
+        </FormField>
 
-          <div className="input-group">
-            <label htmlFor="location">Location (URL or Address)</label>
-            <input
-              type="text"
-              id="location"
-              name="location"
-              placeholder="Google Maps link"
-              onChange={handleChange}
-              value={restaurantForm.location}
-              required
-            />
-          </div>
+        <FormField label="Logo URL">
+          <input
+            type="text"
+            name="logo"
+            placeholder="https://image-link.com/logo.png"
+            onChange={handleChange}
+            value={restaurantForm.logo}
+            required
+            className={inputClass}
+          />
+        </FormField>
 
-          <div className="input-group">
-            <label htmlFor="logo">Logo URL</label>
-            <input
-              type="text"
-              id="logo"
-              name="logo"
-              placeholder="https://image-link.com/logo.png"
-              onChange={handleChange}
-              value={restaurantForm.logo}
-              required
-            />
-          </div>
+        <FormField label="Phone Number">
+          <input
+            type="number"
+            name="phoneNumber"
+            placeholder="973XXXXXXXX"
+            onChange={handleChange}
+            value={restaurantForm.phoneNumber}
+            required
+            className={inputClass}
+          />
+        </FormField>
 
-          <div className="input-group">
-            <label htmlFor="phoneNumber">Phone Number</label>
-            <input
-              type="number"
-              id="phoneNumber"
-              name="phoneNumber"
-              placeholder="973XXXXXXXX"
-              onChange={handleChange}
-              value={restaurantForm.phoneNumber}
-              required
-            />
-          </div>
+        <FormField label="Cuisine Type">
+          <input
+            type="text"
+            name="type"
+            placeholder="e.g. Italian, Fast Food"
+            onChange={handleChange}
+            value={restaurantForm.type}
+            required
+            className={inputClass}
+          />
+        </FormField>
 
-          <div className="input-group">
-            <label htmlFor="type">Cuisine Type</label>
-            <input
-              type="text"
-              id="type"
-              name="type"
-              placeholder="e.g. Italian, Fast Food"
-              onChange={handleChange}
-              value={restaurantForm.type}
-              required
-            />
-          </div>
-
-          <button className="submit-btn" type="submit">
-            Create Restaurant
-          </button>
-        </form>
-      </div>
-    </div>
+        <SubmitButton>Create Restaurant</SubmitButton>
+      </form>
+    </FormShell>
   )
 }
 export default AddRestaurant

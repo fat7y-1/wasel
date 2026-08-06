@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { useParams, useNavigate } from "react-router-dom"
+import {
+  FormShell,
+  FormField,
+  SubmitButton,
+  inputClass,
+} from "./ui/FormShell"
 
 const UpdateRestaurant = () => {
   const { id } = useParams()
@@ -27,76 +33,70 @@ const UpdateRestaurant = () => {
   }
 
   return (
-    <div className="admin-container">
-      <div className="form-card update-card">
-        <h1 className="form-title">Update Restaurant Info</h1>
-        <p className="form-subtitle">
+    <FormShell
+      title="Update Restaurant Info"
+      subtitle={
+        <>
           Modify the details for <strong>{restForm.name}</strong>
-        </p>
+        </>
+      }
+    >
+      <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
+        <FormField label="Restaurant Name">
+          <input
+            name="name"
+            value={restForm.name}
+            onChange={(e) =>
+              setRestForm({ ...restForm, name: e.target.value })
+            }
+            placeholder="Name"
+            required
+            className={inputClass}
+          />
+        </FormField>
 
-        <form className="admin-form" onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label htmlFor="name">Restaurant Name</label>
-            <input
-              id="name"
-              name="name"
-              value={restForm.name}
-              onChange={(e) =>
-                setRestForm({ ...restForm, name: e.target.value })
-              }
-              placeholder="Name"
-              required
-            />
-          </div>
+        <FormField label="Location (URL or Address)">
+          <input
+            name="location"
+            value={restForm.location}
+            onChange={(e) =>
+              setRestForm({ ...restForm, location: e.target.value })
+            }
+            placeholder="Location"
+            required
+            className={inputClass}
+          />
+        </FormField>
 
-          <div className="input-group">
-            <label htmlFor="location">Location (URL or Address)</label>
-            <input
-              id="location"
-              name="location"
-              value={restForm.location}
-              onChange={(e) =>
-                setRestForm({ ...restForm, location: e.target.value })
-              }
-              placeholder="Location"
-              required
-            />
-          </div>
+        <FormField label="Phone Number">
+          <input
+            name="phoneNumber"
+            value={restForm.phoneNumber}
+            onChange={(e) =>
+              setRestForm({ ...restForm, phoneNumber: e.target.value })
+            }
+            placeholder="Phone"
+            required
+            className={inputClass}
+          />
+        </FormField>
 
-          <div className="input-group">
-            <label htmlFor="phoneNumber">Phone Number</label>
-            <input
-              id="phoneNumber"
-              name="phoneNumber"
-              value={restForm.phoneNumber}
-              onChange={(e) =>
-                setRestForm({ ...restForm, phoneNumber: e.target.value })
-              }
-              placeholder="Phone"
-              required
-            />
-          </div>
+        <FormField label="Logo URL">
+          <input
+            name="logo"
+            value={restForm.logo}
+            onChange={(e) =>
+              setRestForm({ ...restForm, logo: e.target.value })
+            }
+            placeholder="Logo URL"
+            required
+            className={inputClass}
+          />
+        </FormField>
 
-          <div className="input-group">
-            <label htmlFor="logo">Logo URL</label>
-            <input
-              id="logo"
-              name="logo"
-              value={restForm.logo}
-              onChange={(e) =>
-                setRestForm({ ...restForm, logo: e.target.value })
-              }
-              placeholder="Logo URL"
-              required
-            />
-          </div>
-
-          <button className="submit-btn update-btn" type="submit">
-            Save Changes
-          </button>
-        </form>
-      </div>
-    </div>
+        <SubmitButton>Save Changes</SubmitButton>
+      </form>
+    </FormShell>
   )
 }
 export default UpdateRestaurant

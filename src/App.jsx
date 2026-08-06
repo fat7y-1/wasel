@@ -1,9 +1,9 @@
 import { useState, useEffect, use } from "react"
 import Home from "./components/Home"
 import axios from "axios"
-import "./App.css"
 import { Routes, Route } from "react-router-dom"
 import NavBar from "./components/NavBar"
+import Footer from "./components/Footer"
 import UserPage from "./components/UserPage"
 import SignIn from "./components/SignIn"
 import SignUp from "./components/SignUp"
@@ -15,12 +15,24 @@ import AddRestaurant from "./components/AddRestaurant"
 import UpdateFood from "./components/UpdateFood"
 import AddDriver from "./components/AddDriver"
 import UpdateRestaurant from "./components/UpdateRestaurant"
+import NotFound from "./components/NotFound"
+import About from "./components/pages/About"
+import Careers from "./components/pages/Careers"
+import Blog from "./components/pages/Blog"
+import Press from "./components/pages/Press"
+import Help from "./components/pages/Help"
+import Partner from "./components/pages/Partner"
+import Drive from "./components/pages/Drive"
+import Terms from "./components/pages/Terms"
+import Privacy from "./components/pages/Privacy"
+import Cookies from "./components/pages/Cookies"
 
 function App() {
   const [restaurants, setRestaurant] = useState([])
   const [user, setUser] = useState(null)
   const [orders, setOrder] = useState([])
   const [cart, setCart] = useState([])
+  const [loadingRestaurants, setLoadingRestaurants] = useState(true)
 
   const getOrder = async (id) => {
     try {
@@ -38,6 +50,8 @@ function App() {
         setRestaurant(response.data)
       } catch (error) {
         console.log(error)
+      } finally {
+        setLoadingRestaurants(false)
       }
     }
     getRestaurant()
@@ -99,8 +113,13 @@ function App() {
   console.log(orders)
   return (
     <>
-      <div>
-        <NavBar user={user} handleLogOut={handleLogOut} />
+      <div className="flex min-h-screen flex-col bg-cream-100">
+        <NavBar
+          user={user}
+          handleLogOut={handleLogOut}
+          cartCount={cart.length}
+        />
+        <main className="flex-1">
         <Routes>
           <Route
             path="/"
@@ -109,6 +128,7 @@ function App() {
                 restaurants={restaurants}
                 handleDeleteRestaurant={handleDeleteRestaurant}
                 user={user}
+                loading={loadingRestaurants}
               />
             }
           />
@@ -146,7 +166,22 @@ function App() {
             }
           />
           <Route path="/driver" element={<AddDriver />} />
+
+          <Route path="/about" element={<About />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/press" element={<Press />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/partner" element={<Partner />} />
+          <Route path="/drive" element={<Drive />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/cookies" element={<Cookies />} />
+
+          <Route path="*" element={<NotFound />} />
         </Routes>
+        </main>
+        <Footer />
       </div>
     </>
   )

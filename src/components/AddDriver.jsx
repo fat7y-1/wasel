@@ -1,6 +1,12 @@
 import { useState } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import {
+  FormShell,
+  FormField,
+  SubmitButton,
+  inputClass,
+} from "./ui/FormShell"
 
 const AddDriver = () => {
   const navigate = useNavigate()
@@ -25,47 +31,39 @@ const AddDriver = () => {
   }
 
   return (
-    <div className="admin-container">
-      <div className="form-card">
-        <div className="icon-header">
-          <span className="driver-icon">🚚</span>
-        </div>
-        <h1 className="form-title">Register Driver</h1>
-        <p className="form-subtitle">Add a new driver to the delivery fleet</p>
+    <FormShell
+      icon="🚚"
+      title="Register Driver"
+      subtitle="Add a new driver to the delivery fleet"
+    >
+      <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
+        <FormField label="Full Name">
+          <input
+            type="text"
+            name="driverName"
+            placeholder="e.g. Ahmed Ali"
+            onChange={handleChange}
+            value={driverForm.driverName}
+            required
+            className={inputClass}
+          />
+        </FormField>
 
-        <form className="admin-form" onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label htmlFor="driverName">Full Name</label>
-            <input
-              type="text"
-              id="driverName"
-              name="driverName"
-              placeholder="e.g. Ahmed Ali"
-              onChange={handleChange}
-              value={driverForm.driverName}
-              required
-            />
-          </div>
+        <FormField label="Phone Number">
+          <input
+            type="number"
+            name="phoneNumber"
+            placeholder="973XXXXXXXX"
+            onChange={handleChange}
+            value={driverForm.phoneNumber}
+            required
+            className={inputClass}
+          />
+        </FormField>
 
-          <div className="input-group">
-            <label htmlFor="phoneNumber">Phone Number</label>
-            <input
-              type="number"
-              id="phoneNumber"
-              name="phoneNumber"
-              placeholder="973XXXXXXXX"
-              onChange={handleChange}
-              value={driverForm.phoneNumber}
-              required
-            />
-          </div>
-
-          <button className="submit-btn driver-btn" type="submit">
-            Add Driver to System
-          </button>
-        </form>
-      </div>
-    </div>
+        <SubmitButton>Add Driver to System</SubmitButton>
+      </form>
+    </FormShell>
   )
 }
 

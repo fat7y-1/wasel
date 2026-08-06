@@ -30,7 +30,7 @@ const AddRestaurant = ({ restaurants, setRestaurant }) => {
     event.preventDefault()
     try {
       const res = await axios.post(
-        `http://localhost:3000/restaurant`,
+        `/restaurant`,
         restaurantForm
       )
       let list = [...restaurants]

@@ -20,7 +20,7 @@ const UpdateRestaurant = () => {
 
   useEffect(() => {
     const getRest = async () => {
-      const response = await axios.get(`http://localhost:3000/restaurant/${id}`)
+      const response = await axios.get(`/restaurant/${id}`)
       setRestForm(response.data)
     }
     getRest()
@@ -28,7 +28,7 @@ const UpdateRestaurant = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await axios.put(`http://localhost:3000/restaurant/${id}`, restForm)
+    await axios.put(`/restaurant/${id}`, restForm)
     navigate(`/${id}`)
   }
 

@@ -22,7 +22,7 @@ const AddFood = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      await axios.post(`http://localhost:3000/food/${id}`, foodForm)
+      await axios.post(`/food/${id}`, foodForm)
       navigate(`/${id}`)
     } catch (error) {
       console.log(error)

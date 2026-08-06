@@ -17,7 +17,7 @@ const UpdateFood = () => {
     const getFood = async () => {
       try {
         let response = await axios.get(
-          `http://localhost:3000/food/oneFood/${id}`
+          `/food/oneFood/${id}`
         )
         setFoodForm(response.data)
       } catch (error) {
@@ -29,7 +29,7 @@ const UpdateFood = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      await axios.put(`http://localhost:3000/food/${id}`, foodForm)
+      await axios.put(`/food/${id}`, foodForm)
       navigate(`/${foodForm.restaurant}`)
     } catch (error) {
       console.log(error)

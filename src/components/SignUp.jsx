@@ -22,7 +22,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await axios.post("http://localhost:3000/auth/sign-up", formValues)
+      await axios.post("/auth/sign-up", formValues)
       setFormValues(initialState)
       navigate("/sign-in")
     } catch (err) {

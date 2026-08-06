@@ -36,7 +36,7 @@ function App() {
 
   const getOrder = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:3000/order/${id}`)
+      const response = await axios.get(`/order/${id}`)
       setOrder(response.data)
     } catch (error) {
       console.log(error)
@@ -46,7 +46,7 @@ function App() {
   useEffect(() => {
     const getRestaurant = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/restaurant`)
+        const response = await axios.get(`/restaurant`)
         setRestaurant(response.data)
       } catch (error) {
         console.log(error)
@@ -58,7 +58,7 @@ function App() {
   }, [])
   const checkToken = async () => {
     try {
-      const userData = await axios.get("http://localhost:3000/auth/session")
+      const userData = await axios.get("/auth/session")
       setUser(userData.data)
     } catch (error) {
       console.log(error)
@@ -68,7 +68,7 @@ function App() {
   const handleDeleteRestaurant = async (restId) => {
     try {
       console.log(restId)
-      await axios.delete(`http://localhost:3000/restaurant/${restId}`)
+      await axios.delete(`/restaurant/${restId}`)
       setRestaurant(restaurants.filter((rest) => rest._id !== restId))
     } catch (error) {
       console.log(error)

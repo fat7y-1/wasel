@@ -19,7 +19,7 @@ const AddDriver = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      await axios.post(`http://localhost:3000/driver`, driverForm)
+      await axios.post(`/driver`, driverForm)
       navigate("/")
     } catch (error) {
       console.log(error)

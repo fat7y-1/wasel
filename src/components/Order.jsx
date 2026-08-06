@@ -19,7 +19,7 @@ const Order = ({ cart, user, setCart, getOrder }) => {
       delivery: true,
     }
     try {
-      await axios.post(`http://localhost:3000/order/${user.id}`, orderData)
+      await axios.post(`/order/${user.id}`, orderData)
       await getOrder(user.id)
       setCart([])
       navigate("/user")

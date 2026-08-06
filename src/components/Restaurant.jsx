@@ -10,7 +10,7 @@ const Restaurant = ({ cart, setCart, user }) => {
 
   const handleDeleteFood = async (foodId) => {
     try {
-      await axios.delete(`http://localhost:3000/food/${foodId}`)
+      await axios.delete(`/food/${foodId}`)
       setListFood(listFood.filter((food) => food._id !== foodId))
     } catch (error) {
       console.log(error)
@@ -20,7 +20,7 @@ const Restaurant = ({ cart, setCart, user }) => {
   useEffect(() => {
     const getFood = async () => {
       try {
-        let response = await axios.get(`http://localhost:3000/food/${id}`)
+        let response = await axios.get(`/food/${id}`)
         setListFood(response.data)
       } catch (error) {
         console.log(error)

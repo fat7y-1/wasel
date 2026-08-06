@@ -18,7 +18,7 @@ const SignIn = ({ setUser }) => {
     e.preventDefault()
     try {
       const userData = await axios.post(
-        "http://localhost:3000/auth/sign-in",
+        "/auth/sign-in",
         formValues
       )
       setFormValues(initialState)
